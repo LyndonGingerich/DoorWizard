@@ -31,7 +31,7 @@ let rec handleKeyPress activeBuilder actorId =
     | ConsoleKey.S -> workingBuilder south actorId
     | ConsoleKey.D -> workingBuilder east actorId
     | ConsoleKey.Spacebar -> idleCommand
-    | _ -> invalidCommand
+    | _ -> fun _ -> invalidCommand
 
 let getCommandForActor = handleKeyPress None 
 
