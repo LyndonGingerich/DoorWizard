@@ -52,7 +52,7 @@ let private renderTile level location =
 let private xs map = seq { 0 .. (topRight map).x }
 
 let private ys map =
-    seq { ((topRight map).y - 1) .. (-1) .. 0 }
+    seq { ((topRight map).y - 1) .. -1 .. 0 }
 
 let render level =
     let buildRow map currentY =
