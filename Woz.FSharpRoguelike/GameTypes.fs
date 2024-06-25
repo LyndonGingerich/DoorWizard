@@ -15,7 +15,7 @@ type Tile =
     | Wall
     | Water
 
-type LevelMap = Tile[][]
+type LevelMap = Tile list list
 
 module Map =
     let bottomLeft = Vector.create 0 0

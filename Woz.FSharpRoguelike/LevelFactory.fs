@@ -47,10 +47,9 @@ let private testItem2 =
           effect = 5 }
 
 let private testMap =
-    let rowToTiles row =
-        row |> Seq.map charToTile |> Array.ofSeq
+    let rowToTiles row = row |> Seq.map charToTile |> List.ofSeq
 
-    testLevelTemplate |> Seq.rev |> Seq.map rowToTiles |> Array.ofSeq
+    testLevelTemplate |> Seq.rev |> Seq.map rowToTiles |> List.ofSeq
 
 let testLevel =
     let level =
