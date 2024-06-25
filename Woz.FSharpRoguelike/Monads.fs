@@ -18,8 +18,8 @@ module Maybe =
 
         member this.Delay(f) = f ()
 
-    let maybe = new maybeFactory ()
-    let maybeOrElse = new maybeOrElseFactory ()
+    let maybe = maybeFactory ()
+    let maybeOrElse = maybeOrElseFactory ()
 
 // Result
 
@@ -49,8 +49,8 @@ module Result =
 
         member this.Delay(f) = f ()
 
-    let result = new resultFactory ()
-    let resultOrElse = new resultOrElseFactory ()
+    let result = resultFactory ()
+    let resultOrElse = resultOrElseFactory ()
 
 // State
 
