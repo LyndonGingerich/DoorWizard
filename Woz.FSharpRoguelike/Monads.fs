@@ -12,10 +12,8 @@ module Result =
         | Valid value -> func value
         | Invalid error -> Invalid error
 
-    let (>>=) monad func = bind func monad
-
     type resultFactory() =
-        member this.Bind(monad, func) = monad >>= func
+        member this.Bind(monad, func) = bind func monad
         member this.Return(value) = Valid value
 
     type resultOrElseFactory() =
