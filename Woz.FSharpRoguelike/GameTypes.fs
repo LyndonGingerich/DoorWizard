@@ -7,8 +7,6 @@ open Library
 open Library.Optics.Map
 open Library.Optics.List
 
-// -----------------------------------------
-
 type Tile =
     | Void
     | Floor
@@ -25,14 +23,10 @@ module Map =
     let topRight tiles =
         Vector.create (width tiles) (height tiles)
 
-// -----------------------------------------
-
 type Door =
     | Open
     | Closed
     | Locked of string // Key name
-
-// -----------------------------------------
 
 type Stats =
     | Health
@@ -47,8 +41,6 @@ module Stat =
     let current_ = (_.current), (fun current stat -> { stat with current = current })
 
     let max_ = (_.max), (fun max stat -> { stat with max = max })
-
-// -----------------------------------------
 
 type Slot =
     | Helmet
@@ -106,8 +98,6 @@ module Item =
         | Key _ -> true
         | _ -> false
 
-// -----------------------------------------
-
 type Actor =
     { id: int
       isNpc: bool
@@ -136,8 +126,6 @@ module Actor =
     let backpackItemWithId_ id = backpack_ >-> Map.value_ id
 
     let expectBackpackItemWithId_ id = backpack_ >-> expectValue_ id
-
-// -----------------------------------------
 
 type Level =
     { playerId: int
