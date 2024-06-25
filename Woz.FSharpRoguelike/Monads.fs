@@ -2,7 +2,7 @@
 
 // Result
 
-type result<'a> =
+type Result<'a> =
     | Valid of 'a
     | Invalid of string
 
