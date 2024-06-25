@@ -19,7 +19,7 @@ let private buildCommand validator operation direction actorId =
 
 let invalidCommand = Error "Unknown command"
 
-let idleCommand (level: level) = Ok level
+let idleCommand (level: Level) = Ok level
 
 let buildMoveActorCommand = buildCommand isValidMove moveActor
 

@@ -24,8 +24,8 @@ let private testPlayer =
       name = "player"
       stats = [ (Health, { current = 10; max = 10 }) ] |> Map.ofSeq
       location = Vector.create 9 6
-      backpack = Map.empty<int, item>
-      equipped = Map.empty<slot, item>
+      backpack = Map.empty<int, Item>
+      equipped = Map.empty<Slot, Item>
       weapon = None }
 
 let private charToTile character =
@@ -56,9 +56,9 @@ let testLevel =
     let level =
         { playerId = testPlayer.id
           map = testMap
-          doors = Map.empty<Vector, door>
-          actors = Map.empty<int, actor>
-          items = Map.empty<Vector, List<item>>
+          doors = Map.empty<Vector, Door>
+          actors = Map.empty<int, Actor>
+          items = Map.empty<Vector, List<Item>>
           mapActors = Map.empty<Vector, int>
           messages = [] }
 

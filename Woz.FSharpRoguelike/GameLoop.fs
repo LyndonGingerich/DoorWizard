@@ -17,7 +17,7 @@ let private runAiCommand level command =
     | Ok updatedLevel -> updatedLevel
     | Error _ -> level
 
-let private runAi (level: level) =
+let private runAi (level: Level) =
     level |> npcIds |> Seq.map getAiCommand |> Seq.fold runAiCommand level |> Ok
 
 let private runTurn playerCommand level =

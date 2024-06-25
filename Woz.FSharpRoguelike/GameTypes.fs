@@ -9,13 +9,13 @@ open Library.Optics.List
 
 // -----------------------------------------
 
-type tile =
+type Tile =
     | Void
     | Floor
     | Wall
     | Water
 
-type LevelMap = tile[][]
+type LevelMap = Tile[][]
 
 module Map =
     let bottomLeft = Vector.create 0 0
@@ -27,21 +27,21 @@ module Map =
 
 // -----------------------------------------
 
-type door =
+type Door =
     | Open
     | Closed
     | Locked of string // Key name
 
 // -----------------------------------------
 
-type stats =
+type Stats =
     | Health
     | Strength
     | Intelligence
     | Stamina
     | Dexterity
 
-type stat = { current: int; max: int }
+type Stat = { current: int; max: int }
 
 module Stat =
     let current_ = (_.current), (fun current stat -> { stat with current = current })
@@ -50,39 +50,39 @@ module Stat =
 
 // -----------------------------------------
 
-type slot =
+type Slot =
     | Helmet
     | Torso
     | Legs
     | Gloves
     | Boots
 
-type key = { id: int; name: string }
+type Key = { id: int; name: string }
 
-type armor =
+type Armor =
     { id: int
       name: string
-      slot: slot
+      slot: Slot
       defense: int
       absorbs: int }
 
-type weapon =
+type Weapon =
     { id: int
       name: string
       attack: int
       damage: int }
 
-type potion =
+type Potion =
     { id: int
       name: string
-      stat: stats
+      stat: Stats
       effect: int }
 
-type item =
-    | Key of key
-    | Armor of armor
-    | Weapon of weapon
-    | Potion of potion
+type Item =
+    | Key of Key
+    | Armor of Armor
+    | Weapon of Weapon
+    | Potion of Potion
 
 module Item =
     let idOf item =
@@ -108,15 +108,15 @@ module Item =
 
 // -----------------------------------------
 
-type actor =
+type Actor =
     { id: int
       isNpc: bool
       name: string
-      stats: Map<stats, stat>
+      stats: Map<Stats, Stat>
       location: Vector
-      backpack: Map<int, item>
-      equipped: Map<slot, item>
-      weapon: item option }
+      backpack: Map<int, Item>
+      equipped: Map<Slot, Item>
+      weapon: Item option }
 
 module Actor =
     let stats_ = (_.stats), (fun stats actor -> { actor with stats = stats })
@@ -139,13 +139,13 @@ module Actor =
 
 // -----------------------------------------
 
-type level =
+type Level =
     { playerId: int
 
       map: LevelMap
-      doors: Map<Vector, door>
-      actors: Map<int, actor>
-      items: Map<Vector, List<item>>
+      doors: Map<Vector, Door>
+      actors: Map<int, Actor>
+      items: Map<Vector, List<Item>>
 
       mapActors: Map<Vector, int>
 
