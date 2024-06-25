@@ -1,28 +1,22 @@
 ﻿namespace Library
 
-// Result
-
-type Result<'a> =
-    | Valid of 'a
-    | Invalid of string
-
 module Result =
     let bind func monad =
         match monad with
-        | Valid value -> func value
-        | Invalid error -> Invalid error
+        | Ok value -> func value
+        | Error error -> Error error
 
     type resultFactory() =
         member this.Bind(monad, func) = bind func monad
-        member this.Return(value) = Valid value
+        member this.Return(value) = Ok value
 
     type resultOrElseFactory() =
         member this.ReturnFrom(x) = x
 
         member this.Combine(firstMonad, secondMonad) =
             match firstMonad with
-            | Valid _ -> firstMonad
-            | Invalid _ -> secondMonad
+            | Ok _ -> firstMonad
+            | Error _ -> secondMonad
 
         member this.Delay(f) = f ()
 

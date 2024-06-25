@@ -10,11 +10,11 @@ open Validation
 
 let private selectActorCommand direction actorId level =
     match level |> isLockedDoor direction actorId with
-    | Valid l -> l |> buildUnlockDoorCommand direction actorId
-    | Invalid _ ->
+    | Ok l -> l |> buildUnlockDoorCommand direction actorId
+    | Error _ ->
         match level |> buildOpenDoorCommand direction actorId with
-        | Valid l -> Valid l
-        | Invalid _ -> level |> buildMoveActorCommand direction actorId
+        | Ok l -> Ok l
+        | Error _ -> level |> buildMoveActorCommand direction actorId
 
 let rec handleKeyPress activeBuilder actorId =
     let workingBuilder =

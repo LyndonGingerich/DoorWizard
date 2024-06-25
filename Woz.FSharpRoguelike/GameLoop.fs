@@ -14,11 +14,11 @@ let private getAiCommand actorId = idleCommand
 
 let private runAiCommand level command =
     match level |> command with
-    | Valid updatedLevel -> updatedLevel
-    | Invalid _ -> level
+    | Ok updatedLevel -> updatedLevel
+    | Error _ -> level
 
 let private runAi (level: level) =
-    level |> npcIds |> Seq.map getAiCommand |> Seq.fold runAiCommand level |> Valid
+    level |> npcIds |> Seq.map getAiCommand |> Seq.fold runAiCommand level |> Ok
 
 let private runTurn playerCommand level =
     let turnResult =
@@ -29,8 +29,8 @@ let private runTurn playerCommand level =
         }
 
     match turnResult with
-    | Valid turnLevel -> turnLevel
-    | Invalid message -> level |> log message
+    | Ok turnLevel -> turnLevel
+    | Error message -> level |> log message
 
 let rec gameLoop level =
     let playerCommand = level |> getPlayerCommand

@@ -11,71 +11,71 @@ open Queries.Level
 
 let private actorExists actorId level =
     match level |> findActor actorId with
-    | Some actor -> Valid actor
-    | None -> Invalid "The actor does not exist"
+    | Some actor -> Ok actor
+    | None -> Error "The actor does not exist"
 
 let private doorExists location level =
     match level |> findDoor location with
-    | Some door -> Valid door
-    | None -> Invalid "There is no door there"
+    | Some door -> Ok door
+    | None -> Error "There is no door there"
 
 // actor ignored, give better shape for later
 let private canDoorBeOpened actor door =
     match door with
-    | Closed -> Valid door
-    | Open -> Invalid "Thet door is already open"
-    | Locked _ -> Invalid "That door is locked"
+    | Closed -> Ok door
+    | Open -> Error "Thet door is already open"
+    | Locked _ -> Error "That door is locked"
 
 // actor ignored, give better shape for later
 let private canDoorBeClosed actor door =
     match door with
-    | Open -> Valid door
-    | Closed -> Invalid "That door is already closed"
-    | Locked _ -> Invalid "That door is locked closed"
+    | Open -> Ok door
+    | Closed -> Error "That door is already closed"
+    | Locked _ -> Error "That door is locked closed"
 
 // actor ignored, give better shape for later
 let private canDoorBeUnlocked actor door =
     match door with
-    | Locked keyName -> Valid keyName
-    | _ -> Invalid "That door is not locked"
+    | Locked keyName -> Ok keyName
+    | _ -> Error "That door is not locked"
 
 let private hasKeyForDoor keyName actor =
     if actor |> hasKey keyName then
-        Valid keyName
+        Ok keyName
     else
-        Invalid("You need " + keyName + " to unlock that door")
+        Error("You need " + keyName + " to unlock that door")
 
 let private isValidLocation location level =
     if level |> hasCoordinate location then
-        Valid location
+        Ok location
     else
-        Invalid "That location is not on the map"
+        Error "That location is not on the map"
 
 let private isEmptyTile location level =
     if level |> locationBlocksMove location then
-        Invalid "You can't move there"
+        Error "You can't move there"
     else
-        Valid(getTile location level)
+        Ok(getTile location level)
 
 let private canReach target location =
     if location |> Vector.distanceFrom target <= 1.0 then
-        Valid target
+        Ok target
     else
-        Invalid "You can't reach that"
+        Error "You can't reach that"
 
 let private isValidMoveDistance target location =
     if location |> Vector.distanceFrom target <= 1.0 then
-        Valid target
+        Ok target
     else
-        Invalid "You can't move that far"
+        Error "You can't move that far"
 
 let private itemsAtLocation location level =
     let items = level |> itemsAt location
 
     if items |> Seq.isEmpty then
-        Invalid "No items to take"
+        Error "No items to take"
     else
-        Valid items
+        Ok items
 
 let private isValidDirection direction actorId level =
     result {
