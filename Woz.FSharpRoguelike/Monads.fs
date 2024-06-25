@@ -2,10 +2,8 @@
 
 // Maybe (option)
 module Maybe =
-    let (>>=) monad func = Option.bind func monad
-
     type maybeFactory() =
-        member this.Bind(monad, func) = monad >>= func
+        member this.Bind(monad, func) = Option.bind func monad
         member this.Return(value) = Some value
 
     type maybeOrElseFactory() =
