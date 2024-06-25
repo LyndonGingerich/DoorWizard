@@ -37,14 +37,12 @@ let private charToTile character =
 
 let private basicKey = "Basic key"
 
-let private testItem1 = Key { id = 2; name = basicKey }
+let private testItem1 = { Type = Key; Id = 2; Name = basicKey }
 
 let private testItem2 =
-    Potion
-        { id = 3
-          name = "Minor health potion"
-          stat = Health
-          effect = 5 }
+    { Id = 3
+      Name = "Minor health potion"
+      Type = Potion { stat = Health; effect = 5 } }
 
 let private testMap =
     let rowToTiles row = row |> Seq.map charToTile |> List.ofSeq

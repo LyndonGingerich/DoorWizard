@@ -4,7 +4,6 @@ open Aether
 open Aether.Operators
 open GameTypes
 open GameTypes.Actor
-open GameTypes.Item
 open GameTypes.Level
 open Queries.Level
 
@@ -105,7 +104,7 @@ let unlockDoor direction actorId level =
 // Items
 
 let placeItem item location =
-    Optic.set (itemWithId_ location (idOf item)) (Some item)
+    Optic.set (itemWithId_ location item.Id) (Some item)
 
 let private mergeItemMaps items1 items2 =
     let folder items id item = Map.add id item items
@@ -118,7 +117,7 @@ let takeItems direction actorId level =
     let newActor = actor |> Optic.set backpack_ newBackpack
 
     let messages =
-        locationItems |> Seq.map (fun item -> actor.name + " took " + (nameOf item))
+        locationItems |> Seq.map (fun item -> actor.name + " took " + item.Name)
 
     level
     |> Optic.set (expectActorWithId_ actorId) newActor

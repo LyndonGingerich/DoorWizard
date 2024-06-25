@@ -49,54 +49,34 @@ type Slot =
     | Gloves
     | Boots
 
-type Key = { id: int; name: string }
-
 type Armor =
-    { id: int
-      name: string
-      slot: Slot
+    { slot: Slot
       defense: int
       absorbs: int }
 
-type Weapon =
-    { id: int
-      name: string
-      attack: int
-      damage: int }
+type Weapon = { attack: int; damage: int }
 
-type Potion =
-    { id: int
-      name: string
-      stat: Stats
-      effect: int }
+type Potion = { stat: Stats; effect: int }
 
-type Item =
-    | Key of Key
+type ItemType =
+    | Key
     | Armor of Armor
     | Weapon of Weapon
     | Potion of Potion
 
-module Item =
-    let idOf item =
-        match item with
-        | Key k -> k.id
-        | Armor a -> a.id
-        | Weapon w -> w.id
-        | Potion p -> p.id
-
-    let nameOf item =
-        match item with
-        | Key k -> k.name
-        | Armor a -> a.name
-        | Weapon w -> w.name
-        | Potion p -> p.name
-
-    let hasId id item = (idOf item) = id
-
+module ItemType =
     let isKey item =
         match item with
-        | Key _ -> true
+        | Key -> true
         | _ -> false
+
+type Item =
+    { Type: ItemType
+      Name: string
+      Id: int }
+
+module Item =
+    let hasId id m = m.Id = id
 
 type Actor =
     { id: int
