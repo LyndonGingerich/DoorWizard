@@ -1,4 +1,4 @@
-﻿module Monads
+﻿namespace Library
 
 // Maybe (option)
 module Maybe =

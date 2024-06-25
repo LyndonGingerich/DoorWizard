@@ -1,4 +1,4 @@
-﻿module AetherExtensions
+﻿namespace Library
 
 open Aether
 

@@ -1,7 +1,7 @@
 ﻿module LevelFactory
 
 open GameTypes
-open Vector
+open Library
 open Operations
 
 let private testLevelTemplate =

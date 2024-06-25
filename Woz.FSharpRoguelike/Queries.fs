@@ -2,12 +2,13 @@
 
 open Microsoft.FSharp.Core.Option
 open Aether
+
 open GameTypes
 open GameTypes.Actor
 open GameTypes.Item
 open GameTypes.Level
 open GameTypes.Map
-open Vector
+open Library
 
 module Level =
     let hasCoordinate location level =

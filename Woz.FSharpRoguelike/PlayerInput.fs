@@ -1,7 +1,8 @@
 ﻿module PlayerInput
 
 open System
-open Monads
+
+open Library
 open GameTypes
 open Commands
 open Vector.Directions

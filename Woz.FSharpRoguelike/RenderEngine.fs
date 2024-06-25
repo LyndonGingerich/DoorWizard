@@ -2,12 +2,13 @@
 
 open System
 open Aether
+
 open GameTypes
 open GameTypes.Level
 open GameTypes.Map
-open Vector
+open Library
 open Queries.Level
-open Monads.Maybe
+open Maybe
 
 let private tileToChar tile =
     match tile with

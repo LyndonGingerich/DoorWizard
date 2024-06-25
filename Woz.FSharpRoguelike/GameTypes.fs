@@ -2,9 +2,10 @@
 
 open Aether
 open Aether.Operators
-open AetherExtensions.Optics.Map
-open AetherExtensions.Optics.List
-open Vector
+
+open Library
+open Library.Optics.Map
+open Library.Optics.List
 
 // -----------------------------------------
 

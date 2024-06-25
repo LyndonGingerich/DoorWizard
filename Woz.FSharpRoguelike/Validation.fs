@@ -1,14 +1,11 @@
 ﻿module Validation
 
 open Microsoft.FSharp.Core
-open Aether
+
 open GameTypes
-open GameTypes.Actor
+open Library
+open Library.Result
 open Queries.Level
-open Vector
-open Monads
-open Monads.Result
-open GameTypes.Item
 
 // Building blocks
 
@@ -61,13 +58,13 @@ let private isEmptyTile location level =
         Valid(getTile location level)
 
 let private canReach target location =
-    if location |> distanceFrom target <= 1.0 then
+    if location |> Vector.distanceFrom target <= 1.0 then
         Valid target
     else
         Invalid "You can't reach that"
 
 let private isValidMoveDistance target location =
-    if location |> distanceFrom target <= 1.0 then
+    if location |> Vector.distanceFrom target <= 1.0 then
         Valid target
     else
         Invalid "You can't move that far"
