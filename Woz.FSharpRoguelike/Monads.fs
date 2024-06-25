@@ -1,13 +1,5 @@
 ﻿namespace Library
 
-// Maybe (option)
-module Maybe =
-    type maybeFactory() =
-        member this.Bind(monad, func) = Option.bind func monad
-        member this.Return(value) = Some value
-
-    let maybe = maybeFactory ()
-
 // Result
 
 type result<'a> =
