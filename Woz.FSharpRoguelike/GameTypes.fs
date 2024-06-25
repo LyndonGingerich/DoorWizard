@@ -94,6 +94,7 @@ type actor =
         backpack: Map<int, item>
         equipped: Map<slot, item>
         weapon: item option
+        Health: int
     }
 
 module Actor =

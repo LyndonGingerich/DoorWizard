@@ -30,6 +30,7 @@ let private testPlayer =
         backpack = Map.empty<int, item>
         equipped = Map.empty<slot, item>
         weapon = None
+        Health = 10 
     }
 
 let private charToTile character =
