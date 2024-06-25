@@ -6,18 +6,7 @@ module Maybe =
         member this.Bind(monad, func) = Option.bind func monad
         member this.Return(value) = Some value
 
-    type maybeOrElseFactory() =
-        member this.ReturnFrom(x) = x
-
-        member this.Combine(firstMonad, secondMonad) =
-            match firstMonad with
-            | Some _ -> firstMonad
-            | None -> secondMonad
-
-        member this.Delay(f) = f ()
-
     let maybe = maybeFactory ()
-    let maybeOrElse = maybeOrElseFactory ()
 
 // Result
 

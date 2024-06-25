@@ -8,7 +8,6 @@ open GameTypes.Level
 open GameTypes.Map
 open Library
 open Queries.Level
-open Maybe
 
 let private tileToChar tile =
     match tile with
@@ -39,12 +38,8 @@ let private maybeTile location = getTile location >> tileToChar >> Some
 
 let private renderTile level location =
     let char =
-        maybeOrElse {
-            return! level |> maybeActor location
-            return! level |> maybeItems location
-            return! level |> maybeDoor location
-            return! level |> maybeTile location
-        }
+        [ maybeActor; maybeItems; maybeDoor; maybeTile ]
+        |> List.tryPick (fun f -> f location level)
 
     match char with
     | Some c -> c
