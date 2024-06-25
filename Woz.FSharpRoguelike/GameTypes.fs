@@ -97,8 +97,6 @@ type actor =
     }
 
 module Actor =
-    let hasId id stat = stat.id = id
-
     let stats_ =
         (fun actor -> actor.stats), 
         (fun stats actor -> {actor with stats = stats})    
