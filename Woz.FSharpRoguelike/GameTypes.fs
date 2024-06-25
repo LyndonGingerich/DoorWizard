@@ -14,7 +14,7 @@ type map = tile[][]
 
 module Map = 
     let bottomLeft = vector.create 0 0
-    let width (map: map) = map.[0].Length - 1
+    let width (map: map) = map[0].Length - 1
     let height (map: map) = map.Length - 1
     let topRight tiles = vector.create (width tiles) (height tiles)
 
