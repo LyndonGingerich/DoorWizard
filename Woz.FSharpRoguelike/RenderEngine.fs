@@ -24,7 +24,7 @@ let private doorToChar door =
     | Locked _ -> '+'
 
 let private maybeActor location =
-    Optic.get (mapActorAt_ location) >> Option.bind (fun actorId -> Some '@')
+    Optic.get (mapActorAt_ location) >> Option.map (fun actorId -> '@')
 
 let private maybeItems location =
     hasItems location
@@ -33,7 +33,7 @@ let private maybeItems location =
         | false -> None
 
 let private maybeDoor location =
-    findDoor location >> Option.bind (fun door -> Some(doorToChar door))
+    findDoor location >> Option.map doorToChar
 
 let private maybeTile location = getTile location >> tileToChar >> Some
 
