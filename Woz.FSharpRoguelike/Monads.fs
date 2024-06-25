@@ -51,25 +51,3 @@ module Result =
 
     let result = resultFactory ()
     let resultOrElse = resultOrElseFactory ()
-
-// State
-
-//type state<'s, 'a> = State of ('s -> 'a * 's)
-//
-//module State =
-//    let bind func monad =
-//        (fun state ->
-//            let result, state = monad state
-//            func result state)
-//
-//    let (>>=) monad func = bind func monad
-//
-//    let get = (fun s -> s, s)
-//    let set = (fun s -> (), s)
-//    let run m s = m s
-//
-//    type stateFactory() =
-//        member this.Bind(monad, func) = monad >>= func
-//        member this.Return(value) = State (fun state -> value, state)
-//
-//    let state = new stateFactory()
