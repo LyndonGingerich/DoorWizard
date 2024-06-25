@@ -15,12 +15,12 @@ type tile =
     | Wall
     | Water
 
-type map = tile[][]
+type LevelMap = tile[][]
 
 module Map =
     let bottomLeft = Vector.create 0 0
-    let width (map: map) = map[0].Length - 1
-    let height (map: map) = map.Length - 1
+    let width (map: LevelMap) = map[0].Length - 1
+    let height (map: LevelMap) = map.Length - 1
 
     let topRight tiles =
         Vector.create (width tiles) (height tiles)
@@ -142,7 +142,7 @@ module Actor =
 type level =
     { playerId: int
 
-      map: map
+      map: LevelMap
       doors: Map<Vector, door>
       actors: Map<int, actor>
       items: Map<Vector, List<item>>
