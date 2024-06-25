@@ -115,8 +115,7 @@ type actor =
       location: vector
       backpack: Map<int, item>
       equipped: Map<slot, item>
-      weapon: item option
-      Health: int }
+      weapon: item option }
 
 module Actor =
     let stats_ = (_.stats), (fun stats actor -> { actor with stats = stats })

@@ -26,8 +26,7 @@ let private testPlayer =
       location = vector.create 9 6
       backpack = Map.empty<int, item>
       equipped = Map.empty<slot, item>
-      weapon = None
-      Health = 10 }
+      weapon = None }
 
 let private charToTile character =
     match character with
