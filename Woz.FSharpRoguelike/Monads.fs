@@ -14,7 +14,7 @@ module Maybe =
         member this.Combine(firstMonad, secondMonad) =
             match firstMonad with
             | Some _ -> firstMonad
-            | None _ -> secondMonad
+            | None -> secondMonad
 
         member this.Delay(f) = f ()
 
