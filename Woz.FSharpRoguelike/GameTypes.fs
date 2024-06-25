@@ -2,8 +2,6 @@
 
 open Aether
 open Aether.Operators
-open Aether.Optics
-open AetherExtensions.Optics
 open AetherExtensions.Optics.Map
 open AetherExtensions.Optics.List
 open Vector
@@ -145,12 +143,6 @@ type level =
     }
 
 module Level =
-    // Player
-
-    let playerId_ =
-        (fun level -> level.playerId), 
-        (fun playerId level -> {level with playerId = playerId})    
-    
     // Doors
 
     let doors_ =
