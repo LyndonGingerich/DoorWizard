@@ -57,7 +57,7 @@ let private ys map =
 let render level =
     let buildRow map currentY =
         xs map
-        |> Seq.map (fun nextX -> vector.create nextX currentY)
+        |> Seq.map (fun nextX -> Vector.create nextX currentY)
         |> Seq.map (renderTile level)
         |> Seq.toArray
         |> System.String

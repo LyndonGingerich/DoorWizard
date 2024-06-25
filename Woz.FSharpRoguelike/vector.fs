@@ -1,19 +1,19 @@
 ﻿module Vector
 
-type public vector =
+type Vector =
     { x: int
       y: int }
 
     static member create x y = { x = x; y = y }
 
     static member op_Addition(lhs, rhs) =
-        vector.create (lhs.x + rhs.x) (lhs.y + rhs.y)
+        Vector.create (lhs.x + rhs.x) (lhs.y + rhs.y)
 
     static member op_Subtraction(lhs, rhs) =
-        vector.create (lhs.x - rhs.x) (lhs.y - rhs.y)
+        Vector.create (lhs.x - rhs.x) (lhs.y - rhs.y)
 
-    static member op_Multiply(lhs: vector, scale: int) =
-        vector.create (lhs.x * scale) (lhs.y * scale)
+    static member op_Multiply(lhs: Vector, scale: int) =
+        Vector.create (lhs.x * scale) (lhs.y * scale)
 
     static member op_LessThanOrEqual(lhs, rhs) = lhs.x <= rhs.x && lhs.y <= rhs.y
 
@@ -26,7 +26,7 @@ type public vector =
     static member op_GreaterThan(lhs, rhs) = lhs.x > rhs.x && lhs.y > rhs.y
 
 let abs location =
-    vector.create (abs location.x) (abs location.y)
+    Vector.create (abs location.x) (abs location.y)
 
 let distanceFrom target location =
     let diff = abs (target - location)
@@ -35,12 +35,12 @@ let distanceFrom target location =
     sqrt (float distanceSq)
 
 module Directions =
-    let idle = vector.create 0 0
-    let north = vector.create 0 1
-    let northEast = vector.create 1 1
-    let east = vector.create 1 0
-    let southEast = vector.create 1 (-1)
-    let south = vector.create 0 -1
-    let southWest = vector.create (-1) (-1)
-    let west = vector.create (-1) 0
-    let northWest = vector.create -1 1
+    let idle = Vector.create 0 0
+    let north = Vector.create 0 1
+    let northEast = Vector.create 1 1
+    let east = Vector.create 1 0
+    let southEast = Vector.create 1 (-1)
+    let south = Vector.create 0 -1
+    let southWest = Vector.create (-1) (-1)
+    let west = Vector.create (-1) 0
+    let northWest = Vector.create -1 1

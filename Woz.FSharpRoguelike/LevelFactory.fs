@@ -23,7 +23,7 @@ let private testPlayer =
       isNpc = false
       name = "player"
       stats = [ (Health, { current = 10; max = 10 }) ] |> Map.ofSeq
-      location = vector.create 9 6
+      location = Vector.create 9 6
       backpack = Map.empty<int, item>
       equipped = Map.empty<slot, item>
       weapon = None }
@@ -56,16 +56,16 @@ let testLevel =
     let level =
         { playerId = testPlayer.id
           map = testMap
-          doors = Map.empty<vector, door>
+          doors = Map.empty<Vector, door>
           actors = Map.empty<int, actor>
-          items = Map.empty<vector, List<item>>
-          mapActors = Map.empty<vector, int>
+          items = Map.empty<Vector, List<item>>
+          mapActors = Map.empty<Vector, int>
           messages = [] }
 
     level
     |> spawnActor testPlayer
-    |> placeDoor Open (vector.create 19 6)
-    |> placeDoor Closed (vector.create 29 6)
-    |> placeDoor (Locked basicKey) (vector.create 24 6)
-    |> placeItem testItem1 (vector.create 17 5)
-    |> placeItem testItem2 (vector.create 16 7)
+    |> placeDoor Open (Vector.create 19 6)
+    |> placeDoor Closed (Vector.create 29 6)
+    |> placeDoor (Locked basicKey) (Vector.create 24 6)
+    |> placeItem testItem1 (Vector.create 17 5)
+    |> placeItem testItem2 (Vector.create 16 7)

@@ -17,12 +17,12 @@ type tile =
 type map = tile[][]
 
 module Map =
-    let bottomLeft = vector.create 0 0
+    let bottomLeft = Vector.create 0 0
     let width (map: map) = map[0].Length - 1
     let height (map: map) = map.Length - 1
 
     let topRight tiles =
-        vector.create (width tiles) (height tiles)
+        Vector.create (width tiles) (height tiles)
 
 // -----------------------------------------
 
@@ -112,7 +112,7 @@ type actor =
       isNpc: bool
       name: string
       stats: Map<stats, stat>
-      location: vector
+      location: Vector
       backpack: Map<int, item>
       equipped: Map<slot, item>
       weapon: item option }
@@ -142,11 +142,11 @@ type level =
     { playerId: int
 
       map: map
-      doors: Map<vector, door>
+      doors: Map<Vector, door>
       actors: Map<int, actor>
-      items: Map<vector, List<item>>
+      items: Map<Vector, List<item>>
 
-      mapActors: Map<vector, int>
+      mapActors: Map<Vector, int>
 
       messages: List<string> }
 
