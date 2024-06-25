@@ -20,7 +20,7 @@ let private doorToChar door =
     match door with
     | Open -> '-'
     | Closed -> '+'
-    | Locked _ -> '*'
+    | Locked _ -> '+'
 
 let private asOption value = if value then Some () else None
 
