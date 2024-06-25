@@ -5,7 +5,7 @@ open Aether
 module Optics =
 
     module Map =
-        let expectValue_ (k: 'k) : Lens<Map<'k, 'v>, 'v> = Map.find k, (fun v m -> Map.add k v m)
+        let expectValue_ (k: 'k) : Lens<Map<'k, 'v>, 'v> = Map.find k, Map.add k
 
     module List =
         let notEmpty_: Isomorphism<List<'a> option, List<'a>> =
