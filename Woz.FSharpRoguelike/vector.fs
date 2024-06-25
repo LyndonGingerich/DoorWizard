@@ -1,36 +1,29 @@
 ﻿module Vector
 
-type public vector = 
-    {
-        x: int
-        y: int
-    } 
-with
-    static member create x y = {x = x; y = y}
+type public vector =
+    { x: int
+      y: int }
 
-    static member op_Addition (lhs, rhs) = 
+    static member create x y = { x = x; y = y }
+
+    static member op_Addition(lhs, rhs) =
         vector.create (lhs.x + rhs.x) (lhs.y + rhs.y)
 
-    static member op_Subtraction (lhs, rhs) = 
+    static member op_Subtraction(lhs, rhs) =
         vector.create (lhs.x - rhs.x) (lhs.y - rhs.y)
 
-    static member op_Multiply (lhs: vector, scale: int) = 
+    static member op_Multiply(lhs: vector, scale: int) =
         vector.create (lhs.x * scale) (lhs.y * scale)
 
-    static member op_LessThanOrEqual (lhs, rhs) = 
-        lhs.x <= rhs.x && lhs.y <= rhs.y
+    static member op_LessThanOrEqual(lhs, rhs) = lhs.x <= rhs.x && lhs.y <= rhs.y
 
-    static member op_Equals (lhs, rhs) = 
-        lhs.x = rhs.x && lhs.y = rhs.y
+    static member op_Equals(lhs, rhs) = lhs.x = rhs.x && lhs.y = rhs.y
 
-    static member op_LessThan (lhs, rhs) = 
-        lhs.x < rhs.x && lhs.y < rhs.y
+    static member op_LessThan(lhs, rhs) = lhs.x < rhs.x && lhs.y < rhs.y
 
-    static member op_GreaterThanOrEqual (lhs, rhs) = 
-        lhs.x >= rhs.x && lhs.y >= rhs.y
+    static member op_GreaterThanOrEqual(lhs, rhs) = lhs.x >= rhs.x && lhs.y >= rhs.y
 
-    static member op_GreaterThan (lhs, rhs) = 
-        lhs.x > rhs.x && lhs.y > rhs.y
+    static member op_GreaterThan(lhs, rhs) = lhs.x > rhs.x && lhs.y > rhs.y
 
 let abs location =
     vector.create (abs location.x) (abs location.y)
@@ -51,4 +44,3 @@ module Directions =
     let southWest = vector.create (-1) (-1)
     let west = vector.create (-1) 0
     let northWest = vector.create -1 1
-

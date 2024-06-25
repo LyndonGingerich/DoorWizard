@@ -10,75 +10,71 @@ open GameTypes.Map
 open Vector
 
 module Level =
-    let hasCoordinate location level = 
-        location >= Map.bottomLeft && 
-        location <= topRight level.map
+    let hasCoordinate location level =
+        location >= Map.bottomLeft && location <= topRight level.map
 
-    let getTile location level = 
-        level.map.[location.y].[location.x]
-    
+    let getTile location level = level.map.[location.y].[location.x]
+
     let isPlayerId level = (=) level.playerId
     let isNpcId level = (<>) level.playerId
 
     let actorIds level =
         level.actors |> Map.toSeq |> Seq.map fst
 
-    let npcIds level = 
+    let npcIds level =
         let isNpc = isNpcId level
         level |> actorIds |> Seq.filter isNpc
-    
+
     let hasActor location level =
         level |> Optic.get (mapActorAt_ location) |> isSome
-    
+
     let hasKey keyName actor =
         actor.backpack
-            |> Map.toSeq
-            |> Seq.map snd
-            |> Seq.filter isKey
-            |> Seq.exists (fun i -> i |> nameOf = keyName)
+        |> Map.toSeq
+        |> Seq.map snd
+        |> Seq.filter isKey
+        |> Seq.exists (fun i -> i |> nameOf = keyName)
 
-    let findActor actorId =
-        Optic.get (actorWithId_ actorId)
+    let findActor actorId = Optic.get (actorWithId_ actorId)
 
-    let expectActor actorId =
-        Optic.get (expectActorWithId_ actorId)
+    let expectActor actorId = Optic.get (expectActorWithId_ actorId)
 
-    let isDead actor =
-        actor |> Optic.get (currentHealth_) = 0 
+    let isDead actor = actor |> Optic.get (currentHealth_) = 0
 
     let isPlayerDead level =
         level |> expectActor level.playerId |> isDead
 
-    let findDoor location =
-        Optic.get (doorAt_ location)
+    let findDoor location = Optic.get (doorAt_ location)
 
-    let expectDoor location =
-        Optic.get (expectDoorAt_ location)
-    
-    let hasDoor location level =
-        level |> findDoor location |> isSome
+    let expectDoor location = Optic.get (expectDoorAt_ location)
+
+    let hasDoor location level = level |> findDoor location |> isSome
 
     let private isBlockingTile location level =
         match level |> getTile location with
-        | Void | Wall -> true
-        | Floor | Water -> false
+        | Void
+        | Wall -> true
+        | Floor
+        | Water -> false
 
-    let private isBlockingDoor location level = 
+    let private isBlockingDoor location level =
         match level |> findDoor location with
-        | Some door -> 
-            match door with 
-            | Closed | Locked _ -> true
+        | Some door ->
+            match door with
+            | Closed
+            | Locked _ -> true
             | Open -> false
         | None -> false
 
-    let private blockView = [isBlockingTile; isBlockingDoor]
-    let private blockMove = [isBlockingTile; isBlockingDoor; hasActor]
+    let private blockView = [ isBlockingTile; isBlockingDoor ]
+    let private blockMove = [ isBlockingTile; isBlockingDoor; hasActor ]
 
     let private checkLocationFor predicates location level =
-        if hasCoordinate location level then 
+        if hasCoordinate location level then
             let testPredicate = (fun predicate -> level |> predicate location)
             predicates |> Seq.exists testPredicate
-        else true
+        else
+            true
 
     let locationBlocksView = checkLocationFor blockView
 
@@ -86,15 +82,11 @@ module Level =
 
     let itemsAt location = Optic.get (itemsAt_ location)
 
-    let toItemMap = 
-        List.map (fun item -> ((idOf item), item))
-        >> Map.ofList
+    let toItemMap = List.map (fun item -> ((idOf item), item)) >> Map.ofList
 
-    let hasItems location = 
-        itemsAt location >> Seq.isEmpty >> not
+    let hasItems location = itemsAt location >> Seq.isEmpty >> not
 
-    let findItem location id = 
-        Optic.get (itemWithId_ location id)
+    let findItem location id = Optic.get (itemWithId_ location id)
 
-    let expectItem location id = 
+    let expectItem location id =
         Optic.get (expectItemWithId_ location id)

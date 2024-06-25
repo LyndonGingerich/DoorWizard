@@ -21,13 +21,12 @@ let invalidCommand = Invalid "Unknown command"
 
 let idleCommand (level: level) = Valid level
 
-let buildMoveActorCommand = buildCommand isValidMove moveActor 
+let buildMoveActorCommand = buildCommand isValidMove moveActor
 
-let buildOpenDoorCommand = buildCommand canOpenDoor openDoor 
+let buildOpenDoorCommand = buildCommand canOpenDoor openDoor
 
-let buildCloseDoorCommand = buildCommand canCloseDoor closeDoor 
+let buildCloseDoorCommand = buildCommand canCloseDoor closeDoor
 
-let buildUnlockDoorCommand = buildCommand canUnlockDoor unlockDoor 
+let buildUnlockDoorCommand = buildCommand canUnlockDoor unlockDoor
 
 let buildTakeItemsCommand = buildCommand canTakeItems takeItems
-    

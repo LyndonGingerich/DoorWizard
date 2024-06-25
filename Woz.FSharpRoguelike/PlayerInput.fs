@@ -13,10 +13,10 @@ let private selectActorCommand direction actorId level =
     | Invalid _ ->
         match level |> buildOpenDoorCommand direction actorId with
         | Valid l -> Valid l
-        | Invalid _ -> level |> buildMoveActorCommand direction actorId 
+        | Invalid _ -> level |> buildMoveActorCommand direction actorId
 
 let rec handleKeyPress activeBuilder actorId =
-    let workingBuilder = 
+    let workingBuilder =
         match activeBuilder with
         | Some builder -> builder
         | None -> selectActorCommand
@@ -33,8 +33,6 @@ let rec handleKeyPress activeBuilder actorId =
     | ConsoleKey.OemPeriod -> idleCommand
     | _ -> fun _ -> invalidCommand
 
-let getCommandForActor = handleKeyPress None 
+let getCommandForActor = handleKeyPress None
 
-let getPlayerCommand level = 
-    level.playerId |> getCommandForActor
-
+let getPlayerCommand level = level.playerId |> getCommandForActor

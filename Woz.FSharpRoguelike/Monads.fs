@@ -10,14 +10,16 @@ module Maybe =
 
     type maybeOrElseFactory() =
         member this.ReturnFrom(x) = x
-        member this.Combine (firstMonad,secondMonad) = 
+
+        member this.Combine(firstMonad, secondMonad) =
             match firstMonad with
             | Some _ -> firstMonad
             | None _ -> secondMonad
-        member this.Delay(f) = f()
 
-    let maybe = new maybeFactory()
-    let maybeOrElse = new maybeOrElseFactory()
+        member this.Delay(f) = f ()
+
+    let maybe = new maybeFactory ()
+    let maybeOrElse = new maybeOrElseFactory ()
 
 // Result
 
@@ -39,14 +41,16 @@ module Result =
 
     type resultOrElseFactory() =
         member this.ReturnFrom(x) = x
-        member this.Combine (firstMonad,secondMonad) = 
+
+        member this.Combine(firstMonad, secondMonad) =
             match firstMonad with
             | Valid _ -> firstMonad
             | Invalid _ -> secondMonad
-        member this.Delay(f) = f()
-    
-    let result = new resultFactory()
-    let resultOrElse = new resultOrElseFactory()
+
+        member this.Delay(f) = f ()
+
+    let result = new resultFactory ()
+    let resultOrElse = new resultOrElseFactory ()
 
 // State
 
@@ -69,4 +73,3 @@ module Result =
 //        member this.Return(value) = State (fun state -> value, state)
 //
 //    let state = new stateFactory()
-
