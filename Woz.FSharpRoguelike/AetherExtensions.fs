@@ -5,8 +5,7 @@ open Aether
 module Optics =
 
     module Option =
-        let expect_: Isomorphism<'a option, 'a> =
-            (fun valueOption -> valueOption.Value), (fun value -> Some value)
+        let expect_: Isomorphism<'a option, 'a> = (_.Value), (fun value -> Some value)
 
     module Map =
         let expectValue_ (k: 'k) : Lens<Map<'k, 'v>, 'v> = Map.find k, (fun v m -> Map.add k v m)

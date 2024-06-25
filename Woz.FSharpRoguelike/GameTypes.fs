@@ -43,10 +43,9 @@ type stats =
 type stat = { current: int; max: int }
 
 module Stat =
-    let current_ =
-        (fun stat -> stat.current), (fun current stat -> { stat with current = current })
+    let current_ = (_.current), (fun current stat -> { stat with current = current })
 
-    let max_ = (fun stat -> stat.max), (fun max stat -> { stat with max = max })
+    let max_ = (_.max), (fun max stat -> { stat with max = max })
 
 // -----------------------------------------
 
@@ -120,8 +119,7 @@ type actor =
       Health: int }
 
 module Actor =
-    let stats_ =
-        (fun actor -> actor.stats), (fun stats actor -> { actor with stats = stats })
+    let stats_ = (_.stats), (fun stats actor -> { actor with stats = stats })
 
     let statFor_ stat = stats_ >-> Map.value_ stat
 
@@ -130,10 +128,10 @@ module Actor =
     let currentHealth_ = (expectStatFor_ Health) >-> Stat.current_
 
     let location_ =
-        (fun actor -> actor.location), (fun location actor -> { actor with location = location })
+        (_.location), (fun location actor -> { actor with location = location })
 
     let backpack_ =
-        (fun actor -> actor.backpack), (fun backpack actor -> { actor with backpack = backpack })
+        (_.backpack), (fun backpack actor -> { actor with backpack = backpack })
 
     let backpackItemWithId_ id = backpack_ >-> Map.value_ id
 
@@ -156,8 +154,7 @@ type level =
 module Level =
     // Doors
 
-    let doors_ =
-        (fun level -> level.doors), (fun doors level -> { level with doors = doors })
+    let doors_ = (_.doors), (fun doors level -> { level with doors = doors })
 
     let doorAt_ location = doors_ >-> Map.value_ location
 
@@ -165,15 +162,14 @@ module Level =
 
     // Actors
 
-    let actors_ =
-        (fun level -> level.actors), (fun actors level -> { level with actors = actors })
+    let actors_ = (_.actors), (fun actors level -> { level with actors = actors })
 
     let actorWithId_ actorId = actors_ >-> Map.value_ actorId
 
     let expectActorWithId_ actorId = actors_ >-> expectValue_ actorId
 
     let mapActors_ =
-        (fun level -> level.mapActors), (fun mapActors level -> { level with mapActors = mapActors })
+        (_.mapActors), (fun mapActors level -> { level with mapActors = mapActors })
 
     let mapActorAt_ location = mapActors_ >-> Map.value_ location
 
@@ -181,8 +177,7 @@ module Level =
 
     // Items
 
-    let items_ =
-        (fun level -> level.items), (fun items level -> { level with items = items })
+    let items_ = (_.items), (fun items level -> { level with items = items })
 
     let itemsAt_ location =
         items_ >-> Map.value_ location >-> notEmpty_
@@ -196,4 +191,4 @@ module Level =
     // Messages
 
     let messages_ =
-        (fun level -> level.messages), (fun messages level -> { level with messages = messages })
+        (_.messages), (fun messages level -> { level with messages = messages })
