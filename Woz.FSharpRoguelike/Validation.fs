@@ -82,7 +82,7 @@ let private itemsAtLocation location level =
 let private isValidDirection direction actorId level =
     result {
         let! actor = level |> actorExists actorId 
-        let targetLocation = (actor |> Optic.get location_) + direction
+        let targetLocation = actor.location + direction
         let! validTarget = level |> isValidLocation targetLocation
         return actor, validTarget
     }

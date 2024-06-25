@@ -31,8 +31,7 @@ module Level =
         level |> Optic.get (mapActorAt_ location) |> isSome
     
     let hasKey keyName actor =
-        actor 
-            |> Optic.get backpack_
+        actor.backpack
             |> Map.toSeq
             |> Seq.map snd
             |> Seq.filter isKey

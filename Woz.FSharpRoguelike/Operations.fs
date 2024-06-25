@@ -11,13 +11,12 @@ open Queries.Level
 // Messages
 
 let log message level =
-    let messages = message :: (level |> Optic.get messages_)
+    let messages = message :: level.messages
     level |> Optic.set messages_ messages
 
 let logAll newMessages level =
     let messages = 
-        level 
-            |> Optic.get messages_
+        level.messages
             |> Seq.append newMessages
             |> List.ofSeq
     level |> Optic.set messages_ messages
@@ -114,8 +113,7 @@ let takeItems direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let locationItems = level |> itemsAt targetLocation
     let newBackpack = 
-        actor 
-            |> Optic.get backpack_ 
+        actor.backpack 
             |> mergeItemMaps (locationItems |> toItemMap)
     let newActor = actor |> Optic.set backpack_ newBackpack
     let messages = 
