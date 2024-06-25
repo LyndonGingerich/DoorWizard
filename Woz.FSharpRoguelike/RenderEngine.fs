@@ -22,16 +22,15 @@ let private doorToChar door =
     | Closed -> '+'
     | Locked _ -> '+'
 
-let private asOption value = if value then Some () else None
-
 let private maybeActor location = 
     Optic.get (mapActorAt_ location) 
     >> Option.bind (fun actorId -> Some '@')
 
 let private maybeItems location =
-    hasItems location 
-    >> asOption 
-    >> Option.bind (fun _ -> Some '?')
+    hasItems location
+    >> function
+        | true -> Some '?'
+        | false -> None
 
 let private maybeDoor location =
     findDoor location 
