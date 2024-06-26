@@ -3,48 +3,46 @@
 open Microsoft.FSharp.Core
 
 open GameTypes
-open Library.Result
+open Library
 open Queries.Level
 
 let private doorExists location level =
-    match level |> findDoor location with
-    | Some door -> Ok door
-    | None -> Error "There is no door there"
+    OperationResult.ofOption "There is no door there" (findDoor location level)
 
 let private canDoorBeOpened actor door =
     match door with
-    | Closed -> Ok door
-    | Open -> Error "That door is already open"
-    | Locked _ -> Error "That door is locked"
+    | Closed -> OperationResult.success door
+    | Open -> OperationResult.failure "That door is already open"
+    | Locked _ -> OperationResult.failure "That door is locked"
 
 let private canDoorBeClosed actor door =
     match door with
-    | Open -> Ok door
-    | Closed -> Error "That door is already closed"
-    | Locked _ -> Error "That door is locked closed"
+    | Open -> OperationResult.success door
+    | Closed -> OperationResult.failure "That door is already closed"
+    | Locked _ -> OperationResult.failure "That door is locked closed"
 
 let private canDoorBeUnlocked actor door =
     match door with
-    | Locked keyName -> Ok keyName
-    | _ -> Error "That door is not locked"
+    | Locked keyName -> OperationResult.success keyName
+    | _ -> OperationResult.failure "That door is not locked"
 
 let private hasKeyForDoor keyName actor =
     if actor |> hasKey keyName then
-        Ok keyName
+        OperationResult.success keyName
     else
-        Error("You need " + keyName + " to unlock that door")
+        OperationResult.failure ("You need " + keyName + " to unlock that door")
 
 let private isValidLocation location =
     if hasCoordinate location then
-        Ok location
+        OperationResult.success location
     else
-        Error "That location is not on the map"
+        OperationResult.failure "That location is not on the map"
 
 let private isEmptyTile location level =
     if level |> locationBlocksMove location then
-        Error "You can't move there"
+        OperationResult.failure "You can't move there"
     else
-        Ok(getTile location level)
+        OperationResult.success (getTile location level)
 
 let private isValidDirection direction actorId level =
     result {
@@ -91,7 +89,7 @@ let canTakeItems direction actorId level =
         let! _, validTarget = level |> isValidDirection direction actorId
 
         if itemsAt validTarget level |> List.isEmpty then
-            return! Error "No items to take"
+            return! OperationResult.failure "No items to take"
         else
             return level
     }

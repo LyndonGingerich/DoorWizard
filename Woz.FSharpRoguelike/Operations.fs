@@ -8,13 +8,13 @@ open Queries.Level
 
 let log message level =
     { level with
-        Messages = message :: level.Messages }
+        Level.Messages = message :: level.Messages }
 
 let logAll newMessages level =
     { level with
-        Messages = newMessages @ level.Messages }
+        Level.Messages = newMessages @ level.Messages }
 
-let flush level = { level with Messages = [] }
+let flush level = { level with Level.Messages = [] }
 
 // Actor
 

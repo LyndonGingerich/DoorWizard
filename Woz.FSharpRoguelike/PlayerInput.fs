@@ -9,12 +9,19 @@ open Vector.Directions
 open Validation
 
 let private selectActorCommand direction actorId level =
-    level
-    |> isLockedDoor direction actorId
-    |> Result.bind (buildUnlockDoorCommand direction actorId)
-    |> Result.bind (buildOpenDoorCommand direction actorId)
-    |> Result.defaultValue level
-    |> buildMoveActorCommand direction actorId
+    let result1 =
+        level
+        |> isLockedDoor direction actorId
+        |> OperationResult.bind (buildUnlockDoorCommand direction actorId)
+        |> OperationResult.bind (buildOpenDoorCommand direction actorId)
+
+    let result2 =
+        result1.Contents
+        |> Option.defaultValue level
+        |> buildMoveActorCommand direction actorId
+
+    { result2 with
+        Messages = result1.Messages @ result2.Messages }
 
 let rec handleKeyPress activeBuilder actorId =
     let workingBuilder =
@@ -36,7 +43,7 @@ let rec handleKeyPress activeBuilder actorId =
     | ConsoleKey.D2 -> workingBuilder south actorId
     | ConsoleKey.D1 -> workingBuilder southWest actorId
     | ConsoleKey.OemPeriod -> idleCommand
-    | _ -> fun _ -> invalidCommand
+    | _ -> invalidCommand
 
 let getCommandForActor = handleKeyPress None
 

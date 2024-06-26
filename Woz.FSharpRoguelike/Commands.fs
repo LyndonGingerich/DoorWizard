@@ -3,17 +3,16 @@
 open GameTypes
 open Library
 open Operations
-open Result
 open Validation
 
-let private composeCommand (validation: Level -> Result<Level, string>) (operation: Level -> Level) level =
+let private composeCommand (validation: Level -> _) (operation: Level -> Level) level =
     result {
         let! validLevel = validation level
         return operation validLevel
     }
 
 let private buildCommand
-    (validator: Vector -> int -> Level -> Result<Level, string>)
+    (validator: Vector -> int -> Level -> _)
     (operation: Vector -> int -> Level -> Level)
     direction
     actorId
@@ -22,9 +21,10 @@ let private buildCommand
     let action = operation direction actorId
     composeCommand test action
 
-let invalidCommand = Error "Unknown command"
+let invalidCommand _ =
+    OperationResult.failure "Unknown command"
 
-let idleCommand (level: Level) = Ok level
+let idleCommand (level: Level) = OperationResult.success level
 
 let buildMoveActorCommand = buildCommand isValidMove moveActor
 

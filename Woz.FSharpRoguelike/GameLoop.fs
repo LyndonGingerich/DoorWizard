@@ -7,18 +7,19 @@ open PlayerInput
 open Operations
 open Queries.Level
 open RenderEngine
-open Result
 
 // Stub
 let private getAiCommand actorId = idleCommand
 
 let private runAiCommand level command =
-    match level |> command with
-    | Ok updatedLevel -> updatedLevel
-    | Error _ -> level
+    (command level).Contents |> Option.defaultValue level
 
 let private runAi (level: Level) =
-    level |> npcIds |> Seq.map getAiCommand |> Seq.fold runAiCommand level |> Ok
+    level
+    |> npcIds
+    |> Seq.map getAiCommand
+    |> Seq.fold runAiCommand level
+    |> OperationResult.success
 
 let private runTurn playerCommand level =
     let turnResult =
@@ -28,9 +29,7 @@ let private runTurn playerCommand level =
             return aiMoved
         }
 
-    match turnResult with
-    | Ok turnLevel -> turnLevel
-    | Error message -> level |> log message
+    turnResult.Contents |> Option.defaultValue level |> logAll turnResult.Messages
 
 let rec gameLoop level =
     let playerCommand = getPlayerCommand ()
