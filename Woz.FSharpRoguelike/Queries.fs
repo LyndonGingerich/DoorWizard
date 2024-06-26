@@ -10,15 +10,15 @@ open Library
 
 module Level =
     let hasCoordinate location level =
-        location >= LevelMap.bottomLeft && location <= LevelMap.topRight level.map
+        location >= LevelMap.bottomLeft && location <= LevelMap.topRight level.Map
 
-    let getTile location level = level.map[location.y][location.x]
+    let getTile location level = level.Map[location.y][location.x]
 
-    let isPlayerId level = (=) level.playerId
-    let isNpcId level = (<>) level.playerId
+    let isPlayerId level = (=) level.PlayerId
+    let isNpcId level = (<>) level.PlayerId
 
     let actorIds level =
-        level.actors |> Map.toSeq |> Seq.map fst
+        level.Actors |> Map.toSeq |> Seq.map fst
 
     let npcIds level =
         let isNpc = isNpcId level
@@ -28,7 +28,7 @@ module Level =
         level |> Optic.get (mapActorAt_ location) |> isSome
 
     let hasKey keyName actor =
-        actor.backpack
+        actor.Backpack
         |> Map.toSeq
         |> Seq.map snd
         |> Seq.filter (fun item -> item.Type = Key)
@@ -41,7 +41,7 @@ module Level =
     let isDead actor = actor |> Optic.get currentHealth_ = 0
 
     let isPlayerDead level =
-        level |> expectActor level.playerId |> isDead
+        level |> expectActor level.PlayerId |> isDead
 
     let findDoor location = Optic.get (doorAt_ location)
 
@@ -81,7 +81,7 @@ module Level =
 
     let itemsAt location = Optic.get (itemsAt_ location)
 
-    let toItemMap = List.map (fun item -> (item.Id, item)) >> Map.ofList
+    let toItemMap = List.map (fun (item: Item) -> (item.Id, item)) >> Map.ofList
 
     let hasItems location = itemsAt location >> Seq.isEmpty >> not
 

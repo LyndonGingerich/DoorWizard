@@ -64,7 +64,7 @@ let render level =
 
     Console.Clear()
 
-    ys level.map |> Seq.map (buildRow level.map) |> print
-    level.messages |> List.rev |> print
+    ys level.Map |> Seq.map (buildRow level.Map) |> print
+    level.Messages |> List.rev |> print
 
     level

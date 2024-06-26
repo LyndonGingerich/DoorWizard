@@ -19,14 +19,14 @@ let private testLevelTemplate =
       "                                            " ] // y = 11
 
 let private testPlayer =
-    { id = 1
-      isNpc = false
-      name = "player"
-      stats = [ (Health, { current = 10; max = 10 }) ] |> Map.ofSeq
-      location = Vector.create 9 6
-      backpack = Map.empty<int, Item>
-      equipped = Map.empty<Slot, Item>
-      weapon = None }
+    { Id = 1
+      IsNpc = false
+      Name = "player"
+      Stats = [ (Health, { Current = 10; Max = 10 }) ] |> Map.ofSeq
+      Location = Vector.create 9 6
+      Backpack = Map.empty<int, Item>
+      Equipped = Map.empty<Slot, Item>
+      Weapon = None }
 
 let private charToTile character =
     match character with
@@ -42,7 +42,7 @@ let private testItem1 = { Type = Key; Id = 2; Name = basicKey }
 let private testItem2 =
     { Id = 3
       Name = "Minor health potion"
-      Type = Potion { stat = Health; effect = 5 } }
+      Type = Potion { Stat = Health; Effect = 5 } }
 
 let private testMap =
     let rowToTiles row = row |> Seq.map charToTile |> List.ofSeq
@@ -51,13 +51,13 @@ let private testMap =
 
 let testLevel =
     let level =
-        { playerId = testPlayer.id
-          map = testMap
-          doors = Map.empty<Vector, Door>
-          actors = Map.empty<int, Actor>
-          items = Map.empty<Vector, List<Item>>
-          mapActors = Map.empty<Vector, int>
-          messages = [] }
+        { PlayerId = testPlayer.Id
+          Map = testMap
+          Doors = Map.empty<Vector, Door>
+          Actors = Map.empty<int, Actor>
+          Items = Map.empty<Vector, List<Item>>
+          MapActors = Map.empty<Vector, int>
+          Messages = [] }
 
     level
     |> spawnActor testPlayer

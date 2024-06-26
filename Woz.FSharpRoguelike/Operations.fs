@@ -10,11 +10,11 @@ open Queries.Level
 // Messages
 
 let log message level =
-    let messages = message :: level.messages
+    let messages = message :: level.Messages
     level |> Optic.set messages_ messages
 
 let logAll newMessages level =
-    let messages = level.messages |> Seq.append newMessages |> List.ofSeq
+    let messages = level.Messages |> Seq.append newMessages |> List.ofSeq
     level |> Optic.set messages_ messages
 
 let flush = Optic.set messages_ []
@@ -23,36 +23,36 @@ let flush = Optic.set messages_ []
 
 let private increaseCurrent amount stat =
     { stat with
-        current = min (stat.current + amount) stat.max }
+        Current = min (stat.Current + amount) stat.Max }
 
 let private decreaseCurrent amount stat =
     { stat with
-        current = max (stat.current - amount) 0 }
+        Current = max (stat.Current - amount) 0 }
 
 let private increaseMax amount stat =
-    let newValue = stat.max + amount
+    let newValue = stat.Max + amount
 
     { stat with
-        current = newValue
-        max = newValue }
+        Current = newValue
+        Max = newValue }
 
 // Actor
 
 let actorTarget direction actorId level =
     let actor = level |> expectActor actorId
-    let targetLocation = actor.location + direction
+    let targetLocation = actor.Location + direction
     actor, targetLocation
 
 let spawnActor actor =
-    Optic.set (expectActorWithId_ actor.id) actor
-    >> Optic.set (expectMapActorAt_ actor.location) actor.id
+    Optic.set (expectActorWithId_ actor.Id) actor
+    >> Optic.set (expectMapActorAt_ actor.Location) actor.Id
 
 let removeActor actorId level =
     let actor = level |> expectActor actorId
 
     level
     |> Optic.set (actorWithId_ actorId) None
-    |> Optic.set (mapActorAt_ actor.location) None
+    |> Optic.set (mapActorAt_ actor.Location) None
 
 let moveActor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
@@ -60,9 +60,9 @@ let moveActor direction actorId level =
 
     level
     |> Optic.set (expectActorWithId_ actorId) movedActor
-    |> Optic.set (mapActorAt_ actor.location) None
+    |> Optic.set (mapActorAt_ actor.Location) None
     |> Optic.set (expectMapActorAt_ targetLocation) actorId
-    |> log (actor.name + " moved")
+    |> log (actor.Name + " moved")
 
 let hurtActor damage actorId level =
     let actor = level |> Optic.get (expectActorWithId_ actorId)
@@ -71,7 +71,7 @@ let hurtActor damage actorId level =
 
     level
     |> Optic.set actorHealth_ updatedHealth
-    |> log (actor.name + " took damage")
+    |> log (actor.Name + " took damage")
 
 // Not really needed so dropped
 //let addItemToBackpack item actorId level =
@@ -88,22 +88,22 @@ let placeDoor state location =
 
 let openDoor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
-    level |> placeDoor Open targetLocation |> log (actor.name + " opened a door")
+    level |> placeDoor Open targetLocation |> log (actor.Name + " opened a door")
 
 let closeDoor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
-    level |> placeDoor Closed targetLocation |> log (actor.name + " closed a door")
+    level |> placeDoor Closed targetLocation |> log (actor.Name + " closed a door")
 
 let unlockDoor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
 
     level
     |> placeDoor Closed targetLocation
-    |> log (actor.name + " unlocked a door")
+    |> log (actor.Name + " unlocked a door")
 
 // Items
 
-let placeItem item location =
+let placeItem (item: Item) location =
     Optic.set (itemWithId_ location item.Id) (Some item)
 
 let private mergeItemMaps items1 items2 =
@@ -113,11 +113,11 @@ let private mergeItemMaps items1 items2 =
 let takeItems direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let locationItems = level |> itemsAt targetLocation
-    let newBackpack = actor.backpack |> mergeItemMaps (locationItems |> toItemMap)
+    let newBackpack = actor.Backpack |> mergeItemMaps (locationItems |> toItemMap)
     let newActor = actor |> Optic.set backpack_ newBackpack
 
     let messages =
-        locationItems |> Seq.map (fun item -> actor.name + " took " + item.Name)
+        locationItems |> Seq.map (fun item -> actor.Name + " took " + item.Name)
 
     level
     |> Optic.set (expectActorWithId_ actorId) newActor

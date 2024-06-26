@@ -35,12 +35,12 @@ type Stats =
     | Stamina
     | Dexterity
 
-type Stat = { current: int; max: int }
+type Stat = { Current: int; Max: int }
 
 module Stat =
-    let current_ = (_.current), (fun current stat -> { stat with current = current })
+    let current_ = (_.Current), (fun current stat -> { stat with Current = current })
 
-    let max_ = (_.max), (fun max stat -> { stat with max = max })
+    let max_ = (_.Max), (fun max stat -> { stat with Max = max })
 
 type Slot =
     | Helmet
@@ -50,13 +50,13 @@ type Slot =
     | Boots
 
 type Armor =
-    { slot: Slot
-      defense: int
-      absorbs: int }
+    { Slot: Slot
+      Defense: int
+      Absorbs: int }
 
-type Weapon = { attack: int; damage: int }
+type Weapon = { Attack: int; Damage: int }
 
-type Potion = { stat: Stats; effect: int }
+type Potion = { Stat: Stats; Effect: int }
 
 type ItemType =
     | Key
@@ -73,17 +73,17 @@ module Item =
     let hasId id m = m.Id = id
 
 type Actor =
-    { id: int
-      isNpc: bool
-      name: string
-      stats: Map<Stats, Stat>
-      location: Vector
-      backpack: Map<int, Item>
-      equipped: Map<Slot, Item>
-      weapon: Item option }
+    { Id: int
+      IsNpc: bool
+      Name: string
+      Stats: Map<Stats, Stat>
+      Location: Vector
+      Backpack: Map<int, Item>
+      Equipped: Map<Slot, Item>
+      Weapon: Item option }
 
 module Actor =
-    let stats_ = (_.stats), (fun stats actor -> { actor with stats = stats })
+    let stats_ = (_.Stats), (fun stats actor -> { actor with Stats = stats })
 
     let statFor_ stat = stats_ >-> Map.value_ stat
 
@@ -92,31 +92,31 @@ module Actor =
     let currentHealth_ = (expectStatFor_ Health) >-> Stat.current_
 
     let location_ =
-        (_.location), (fun location actor -> { actor with location = location })
+        (_.Location), (fun location actor -> { actor with Location = location })
 
     let backpack_ =
-        (_.backpack), (fun backpack actor -> { actor with backpack = backpack })
+        (_.Backpack), (fun backpack actor -> { actor with Backpack = backpack })
 
     let backpackItemWithId_ id = backpack_ >-> Map.value_ id
 
     let expectBackpackItemWithId_ id = backpack_ >-> expectValue_ id
 
 type Level =
-    { playerId: int
+    { PlayerId: int
 
-      map: LevelMap
-      doors: Map<Vector, Door>
-      actors: Map<int, Actor>
-      items: Map<Vector, List<Item>>
+      Map: LevelMap
+      Doors: Map<Vector, Door>
+      Actors: Map<int, Actor>
+      Items: Map<Vector, List<Item>>
 
-      mapActors: Map<Vector, int>
+      MapActors: Map<Vector, int>
 
-      messages: List<string> }
+      Messages: List<string> }
 
 module Level =
     // Doors
 
-    let doors_ = (_.doors), (fun doors level -> { level with doors = doors })
+    let doors_ = (_.Doors), (fun doors level -> { level with Doors = doors })
 
     let doorAt_ location = doors_ >-> Map.value_ location
 
@@ -124,14 +124,14 @@ module Level =
 
     // Actors
 
-    let actors_ = (_.actors), (fun actors level -> { level with actors = actors })
+    let actors_ = (_.Actors), (fun actors level -> { level with Actors = actors })
 
     let actorWithId_ actorId = actors_ >-> Map.value_ actorId
 
     let expectActorWithId_ actorId = actors_ >-> expectValue_ actorId
 
     let mapActors_ =
-        (_.mapActors), (fun mapActors level -> { level with mapActors = mapActors })
+        (_.MapActors), (fun mapActors level -> { level with MapActors = mapActors })
 
     let mapActorAt_ location = mapActors_ >-> Map.value_ location
 
@@ -139,7 +139,7 @@ module Level =
 
     // Items
 
-    let items_ = (_.items), (fun items level -> { level with items = items })
+    let items_ = (_.Items), (fun items level -> { level with Items = items })
 
     let itemsAt_ location =
         items_ >-> Map.value_ location >-> notEmpty_
@@ -153,4 +153,4 @@ module Level =
     // Messages
 
     let messages_ =
-        (_.messages), (fun messages level -> { level with messages = messages })
+        (_.Messages), (fun messages level -> { level with Messages = messages })

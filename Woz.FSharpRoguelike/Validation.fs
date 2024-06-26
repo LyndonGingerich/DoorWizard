@@ -80,7 +80,7 @@ let private itemsAtLocation location level =
 let private isValidDirection direction actorId level =
     result {
         let! actor = level |> actorExists actorId
-        let targetLocation = actor.location + direction
+        let targetLocation = actor.Location + direction
         let! validTarget = level |> isValidLocation targetLocation
         return actor, validTarget
     }
@@ -88,7 +88,7 @@ let private isValidDirection direction actorId level =
 let private testDoorWith test direction actorId level =
     result {
         let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.location |> canReach validTarget
+        let! _ = actor.Location |> canReach validTarget
         let! door = level |> doorExists validTarget
         let! _ = door |> test actor
         return level
@@ -106,7 +106,7 @@ let private hasKeyForLockedDoor actor door =
 let isValidMove direction actorId level =
     result {
         let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.location |> isValidMoveDistance validTarget
+        let! _ = actor.Location |> isValidMoveDistance validTarget
         let! _ = level |> isEmptyTile validTarget
         return level
     }
@@ -122,7 +122,7 @@ let canUnlockDoor = testDoorWith hasKeyForLockedDoor
 let canTakeItems direction actorId level =
     result {
         let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.location |> canReach validTarget
+        let! _ = actor.Location |> canReach validTarget
         let! _ = level |> itemsAtLocation validTarget
         return level
     }
