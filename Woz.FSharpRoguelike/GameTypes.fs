@@ -1,11 +1,6 @@
 ﻿module GameTypes
 
-open Aether
-open Aether.Operators
-
 open Library
-open Library.Optics.Map
-open Library.Optics.List
 
 type Tile =
     | Void
@@ -104,30 +99,3 @@ type Level =
       MapActors: Map<Vector, int>
 
       Messages: List<string> }
-
-module Level =
-    // Actors
-
-    let actors_ = (_.Actors), (fun actors level -> { level with Actors = actors })
-
-    let actorWithId_ actorId = actors_ >-> Map.value_ actorId
-
-    let expectActorWithId_ actorId = actors_ >-> expectValue_ actorId
-
-    let mapActors_ =
-        (_.MapActors), (fun mapActors level -> { level with MapActors = mapActors })
-
-    let mapActorAt_ location = mapActors_ >-> Map.value_ location
-
-    // Items
-
-    let items_ = (_.Items), (fun items level -> { level with Items = items })
-
-    let itemsAt_ location =
-        items_ >-> Map.value_ location >-> notEmpty_
-
-    let itemWithId_ location id =
-        itemsAt_ location >-> where_ (Item.hasId id)
-
-    let expectItemWithId_ location id =
-        itemsAt_ location >-> expectWhere_ (Item.hasId id)
