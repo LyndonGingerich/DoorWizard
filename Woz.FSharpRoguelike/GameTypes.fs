@@ -140,8 +140,3 @@ module Level =
 
     let expectItemWithId_ location id =
         itemsAt_ location >-> expectWhere_ (Item.hasId id)
-
-    // Messages
-
-    let messages_ =
-        (_.Messages), (fun messages level -> { level with Messages = messages })

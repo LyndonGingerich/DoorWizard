@@ -11,13 +11,13 @@ open Queries.Level
 
 let log message level =
     let messages = message :: level.Messages
-    level |> Optic.set messages_ messages
+    { level with Messages = messages }
 
 let logAll newMessages level =
     let messages = level.Messages |> Seq.append newMessages |> List.ofSeq
-    level |> Optic.set messages_ messages
+    { level with Messages = messages }
 
-let flush = Optic.set messages_ []
+let flush level = { level with Messages = [] }
 
 // Stats
 
