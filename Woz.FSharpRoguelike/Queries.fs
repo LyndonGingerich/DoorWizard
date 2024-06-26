@@ -23,7 +23,7 @@ module Level =
         level |> actorIds |> Seq.filter isNpc
 
     let hasActor location level =
-        level |> Optic.get (mapActorAt_ location) |> isSome
+        level.MapActors |> Map.tryFind location |> isSome
 
     let hasKey keyName actor =
         actor.Backpack.Values
