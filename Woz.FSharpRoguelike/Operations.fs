@@ -48,7 +48,7 @@ let moveActor direction actorId level =
     |> log (actor.Name + " moved")
 
 let hurtActor damage actorId level =
-    let actor = level |> Optic.get (expectActorWithId_ actorId)
+    let actor = level.Actors[actorId]
 
     let updateHealth = Actor.mapHealth (StatValue.decreaseCurrent damage)
 
