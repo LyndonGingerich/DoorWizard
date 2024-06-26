@@ -85,8 +85,6 @@ type Actor =
 module Actor =
     let stats_ = (_.Stats), (fun stats actor -> { actor with Stats = stats })
 
-    let expectStatFor_ stat = stats_ >-> expectValue_ stat
-
 type Level =
     { PlayerId: int
 
