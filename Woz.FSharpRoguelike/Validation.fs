@@ -3,7 +3,6 @@
 open Microsoft.FSharp.Core
 
 open GameTypes
-open Library
 open Library.Result
 open Queries.Level
 
@@ -57,12 +56,6 @@ let private isEmptyTile location level =
     else
         Ok(getTile location level)
 
-let private canReach target location =
-    if location |> Vector.distanceFrom target <= 1.0 then
-        Ok target
-    else
-        Error "You can't reach that"
-
 let private isValidDirection direction actorId level =
     result {
         let! actor = level |> actorExists actorId
@@ -74,7 +67,6 @@ let private isValidDirection direction actorId level =
 let private testDoorWith test direction actorId level =
     result {
         let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.Location |> canReach validTarget
         let! door = level |> doorExists validTarget
         let! _ = door |> test actor
         return level
@@ -106,8 +98,7 @@ let canUnlockDoor = testDoorWith hasKeyForLockedDoor
 
 let canTakeItems direction actorId level =
     result {
-        let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.Location |> canReach validTarget
+        let! _, validTarget = level |> isValidDirection direction actorId
 
         if itemsAt validTarget level |> List.isEmpty then
             return! Error "No items to take"
