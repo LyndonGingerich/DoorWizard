@@ -44,7 +44,7 @@ module Level =
 
     let findDoor location = Optic.get (doorAt_ location)
 
-    let expectDoor location = Optic.get (expectDoorAt_ location)
+    let expectDoor location level = level.Doors[location]
 
     let hasDoor location level = level |> findDoor location |> isSome
 

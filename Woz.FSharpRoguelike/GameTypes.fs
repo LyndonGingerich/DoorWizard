@@ -104,8 +104,6 @@ module Level =
 
     let doorAt_ location = doors_ >-> Map.value_ location
 
-    let expectDoorAt_ location = doors_ >-> expectValue_ location
-
     // Actors
 
     let actors_ = (_.Actors), (fun actors level -> { level with Actors = actors })

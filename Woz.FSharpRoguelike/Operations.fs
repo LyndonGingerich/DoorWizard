@@ -80,8 +80,9 @@ let hurtActor damage actorId level =
 
 // Door
 
-let placeDoor state location =
-    Optic.set (expectDoorAt_ location) state
+let placeDoor state location level =
+    { level with
+        Doors = Map.add location state level.Doors }
 
 let openDoor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
