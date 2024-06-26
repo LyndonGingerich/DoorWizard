@@ -35,9 +35,9 @@ type Stats =
     | Stamina
     | Dexterity
 
-type Stat = { Current: int; Max: int }
+type StatValue = { Current: int; Max: int }
 
-module Stat =
+module StatValue =
     let current_ = (_.Current), (fun current stat -> { stat with Current = current })
 
     let max_ = (_.Max), (fun max stat -> { stat with Max = max })
@@ -76,7 +76,7 @@ type Actor =
     { Id: int
       IsNpc: bool
       Name: string
-      Stats: Map<Stats, Stat>
+      Stats: Map<Stats, StatValue>
       Location: Vector
       Backpack: Map<int, Item>
       Equipped: Map<Slot, Item>
@@ -87,7 +87,7 @@ module Actor =
 
     let expectStatFor_ stat = stats_ >-> expectValue_ stat
 
-    let currentHealth_ = (expectStatFor_ Health) >-> Stat.current_
+    let currentHealth_ = (expectStatFor_ Health) >-> StatValue.current_
 
 type Level =
     { PlayerId: int
