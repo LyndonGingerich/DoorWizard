@@ -34,9 +34,9 @@ let spawnActor actor level =
 let removeActor actorId level =
     let actor = level |> expectActor actorId
 
-    level
-    |> Optic.set (actorWithId_ actorId) None
-    |> Optic.set (mapActorAt_ actor.Location) None
+    { level with
+        Actors = Map.remove actorId level.Actors
+        MapActors = Map.remove actor.Location level.MapActors }
 
 let moveActor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
