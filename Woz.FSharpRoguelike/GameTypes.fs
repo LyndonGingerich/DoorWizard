@@ -28,7 +28,7 @@ type Door =
     | Closed
     | Locked of string // Key name
 
-type Stats =
+type Stat =
     | Health
     | Strength
     | Intelligence
@@ -56,7 +56,7 @@ type Armor =
 
 type Weapon = { Attack: int; Damage: int }
 
-type Potion = { Stat: Stats; Effect: int }
+type Potion = { Stat: Stat; Effect: int }
 
 type ItemType =
     | Key
@@ -76,7 +76,7 @@ type Actor =
     { Id: int
       IsNpc: bool
       Name: string
-      Stats: Map<Stats, StatValue>
+      Stats: Map<Stat, StatValue>
       Location: Vector
       Backpack: Map<int, Item>
       Equipped: Map<Slot, Item>
