@@ -78,14 +78,6 @@ let hurtActor damage actorId level =
     |> Optic.set actorHealth_ updatedHealth
     |> log (actor.Name + " took damage")
 
-// Not really needed so dropped
-//let addItemToBackpack item actorId level =
-//    let actor = level |> expectActor actorId
-//    let newActor = actor |> Optic.set (expectBackpackItemWithId_ (idOf item)) item
-//    level
-//        |> Optic.set (expectActorWithId_ actorId) newActor
-//        |> log (actor.name + " took " + (nameOf item))
-
 // Door
 
 let placeDoor state location =
