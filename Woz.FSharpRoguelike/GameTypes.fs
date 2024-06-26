@@ -85,8 +85,6 @@ type Actor =
 module Actor =
     let stats_ = (_.Stats), (fun stats actor -> { actor with Stats = stats })
 
-    let statFor_ stat = stats_ >-> Map.value_ stat
-
     let expectStatFor_ stat = stats_ >-> expectValue_ stat
 
     let currentHealth_ = (expectStatFor_ Health) >-> Stat.current_
