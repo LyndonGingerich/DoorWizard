@@ -16,8 +16,7 @@ module Level =
     let isPlayerId level = (=) level.PlayerId
     let isNpcId level = (<>) level.PlayerId
 
-    let actorIds level =
-        level.Actors |> Map.toSeq |> Seq.map fst
+    let actorIds level = level.Actors.Keys
 
     let npcIds level =
         let isNpc = isNpcId level
@@ -27,9 +26,7 @@ module Level =
         level |> Optic.get (mapActorAt_ location) |> isSome
 
     let hasKey keyName actor =
-        actor.Backpack
-        |> Map.toSeq
-        |> Seq.map snd
+        actor.Backpack.Values
         |> Seq.filter (fun item -> item.Type = Key)
         |> Seq.exists (fun i -> i.Name = keyName)
 
