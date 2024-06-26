@@ -18,7 +18,7 @@ let private testLevelTemplate =
       "                                            " // y = 10
       "                                            " ] // y = 11
 
-let private testPlayer =
+let private playerInit =
     { Id = 1
       Name = "player"
       Stats = { Health = { Current = 10; Max = 10 } }
@@ -48,7 +48,7 @@ let private testMap =
 
 let testLevel =
     let level =
-        { PlayerId = testPlayer.Id
+        { PlayerId = playerInit.Id
           Map = testMap
           Doors = Map.empty<Vector, Door>
           Actors = Map.empty<int, Actor>
@@ -57,7 +57,7 @@ let testLevel =
           Messages = [] }
 
     level
-    |> spawnActor testPlayer
+    |> spawnActor playerInit
     |> placeDoor Open (Vector.create 19 6)
     |> placeDoor Closed (Vector.create 29 6)
     |> placeDoor (Locked basicKey) (Vector.create 24 6)
