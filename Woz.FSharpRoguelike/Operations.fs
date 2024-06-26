@@ -56,7 +56,7 @@ let removeActor actorId level =
 
 let moveActor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
-    let movedActor = actor |> Optic.set location_ targetLocation
+    let movedActor = { actor with Location = targetLocation }
 
     level
     |> Optic.set (expectActorWithId_ actorId) movedActor

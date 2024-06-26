@@ -89,9 +89,6 @@ module Actor =
 
     let currentHealth_ = (expectStatFor_ Health) >-> Stat.current_
 
-    let location_ =
-        (_.Location), (fun location actor -> { actor with Location = location })
-
 type Level =
     { PlayerId: int
 
