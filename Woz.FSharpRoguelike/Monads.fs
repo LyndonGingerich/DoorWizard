@@ -9,5 +9,6 @@ module Result =
     type resultFactory() =
         member this.Bind(monad, func) = bind func monad
         member this.Return(value) = Ok value
+        member this.ReturnFrom(value) = value
 
     let result = resultFactory ()
