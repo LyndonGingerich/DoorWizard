@@ -6,28 +6,23 @@ open GameTypes
 open Library.Result
 open Queries.Level
 
-// Building blocks
-
 let private doorExists location level =
     match level |> findDoor location with
     | Some door -> Ok door
     | None -> Error "There is no door there"
 
-// actor ignored, give better shape for later
 let private canDoorBeOpened actor door =
     match door with
     | Closed -> Ok door
     | Open -> Error "That door is already open"
     | Locked _ -> Error "That door is locked"
 
-// actor ignored, give better shape for later
 let private canDoorBeClosed actor door =
     match door with
     | Open -> Ok door
     | Closed -> Error "That door is already closed"
     | Locked _ -> Error "That door is locked closed"
 
-// actor ignored, give better shape for later
 let private canDoorBeUnlocked actor door =
     match door with
     | Locked keyName -> Ok keyName
