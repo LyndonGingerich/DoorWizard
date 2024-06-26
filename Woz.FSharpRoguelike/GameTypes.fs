@@ -75,7 +75,6 @@ module Item =
 
 type Actor =
     { Id: int
-      IsNpc: bool
       Name: string
       Stats: Stats
       Location: Vector

@@ -20,7 +20,6 @@ let private testLevelTemplate =
 
 let private testPlayer =
     { Id = 1
-      IsNpc = false
       Name = "player"
       Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
