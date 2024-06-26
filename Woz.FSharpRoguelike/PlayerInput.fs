@@ -27,10 +27,14 @@ let rec handleKeyPress activeBuilder actorId =
     | ConsoleKey.C -> handleKeyPress (Some buildCloseDoorCommand) actorId
     | ConsoleKey.U -> handleKeyPress (Some buildUnlockDoorCommand) actorId
     | ConsoleKey.T -> handleKeyPress (Some buildTakeItemsCommand) actorId
-    | ConsoleKey.W -> workingBuilder north actorId
-    | ConsoleKey.A -> workingBuilder west actorId
-    | ConsoleKey.S -> workingBuilder south actorId
-    | ConsoleKey.D -> workingBuilder east actorId
+    | ConsoleKey.D9 -> workingBuilder northEast actorId
+    | ConsoleKey.D8 -> workingBuilder north actorId
+    | ConsoleKey.D7 -> workingBuilder northWest actorId
+    | ConsoleKey.D6 -> workingBuilder east actorId
+    | ConsoleKey.D4 -> workingBuilder west actorId
+    | ConsoleKey.D3 -> workingBuilder southEast actorId
+    | ConsoleKey.D2 -> workingBuilder south actorId
+    | ConsoleKey.D1 -> workingBuilder southWest actorId
     | ConsoleKey.OemPeriod -> idleCommand
     | _ -> fun _ -> invalidCommand
 
