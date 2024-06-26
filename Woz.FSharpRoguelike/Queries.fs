@@ -42,7 +42,7 @@ module Level =
     let isPlayerDead level =
         level |> expectActor level.PlayerId |> isDead
 
-    let findDoor location = Optic.get (doorAt_ location)
+    let findDoor location level = level.Doors |> Map.tryFind location
 
     let expectDoor location level = level.Doors[location]
 
