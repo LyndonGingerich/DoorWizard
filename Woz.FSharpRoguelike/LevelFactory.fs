@@ -23,8 +23,7 @@ let private testPlayer =
       Name = "player"
       Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
-      Backpack = Map.empty<int, Item>
-      Weapon = None }
+      Backpack = Map.empty<int, Item> }
 
 let private charToTile character =
     match character with

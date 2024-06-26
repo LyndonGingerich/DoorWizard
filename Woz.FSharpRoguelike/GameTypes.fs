@@ -65,8 +65,7 @@ type Actor =
       Name: string
       Stats: Stats
       Location: Vector
-      Backpack: Map<int, Item>
-      Weapon: Item option }
+      Backpack: Map<int, Item> }
 
 module Actor =
     let mapHealth f actor =
