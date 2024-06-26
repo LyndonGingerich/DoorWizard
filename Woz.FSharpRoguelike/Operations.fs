@@ -1,9 +1,6 @@
 ﻿module Operations
 
-open Aether
-
 open GameTypes
-open GameTypes.Level
 open Library
 open Queries.Level
 
@@ -102,7 +99,7 @@ let takeItems direction actorId level =
     let messages =
         locationItems |> List.map (fun item -> actor.Name + " took " + item.Name)
 
-    level
-    |> Optic.set (expectActorWithId_ actorId) newActor
-    |> Optic.set (itemsAt_ targetLocation) []
+    { level with
+        Actors = Map.add actorId newActor level.Actors
+        Items = Map.remove targetLocation level.Items }
     |> logAll messages
