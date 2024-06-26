@@ -12,7 +12,7 @@ module Level =
     let hasCoordinate location level =
         location >= Map.bottomLeft && location <= Map.topRight level.map
 
-    let getTile location level = level.map.[location.y].[location.x]
+    let getTile location level = level.map[location.y][location.x]
 
     let isPlayerId level = (=) level.playerId
     let isNpcId level = (<>) level.playerId
