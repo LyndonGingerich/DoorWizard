@@ -23,7 +23,7 @@ let rec handleKeyPress activeBuilder actorId =
         | None -> selectActorCommand
 
     match Console.ReadKey().Key with
-    | ConsoleKey.O -> handleKeyPress (Some buildOpenDoorCommand) actorId
+    | ConsoleKey.D5 -> handleKeyPress (Some buildOpenDoorCommand) actorId
     | ConsoleKey.C -> handleKeyPress (Some buildCloseDoorCommand) actorId
     | ConsoleKey.U -> handleKeyPress (Some buildUnlockDoorCommand) actorId
     | ConsoleKey.T -> handleKeyPress (Some buildTakeItemsCommand) actorId
