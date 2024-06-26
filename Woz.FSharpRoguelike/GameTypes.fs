@@ -119,8 +119,6 @@ module Level =
 
     let mapActorAt_ location = mapActors_ >-> Map.value_ location
 
-    let expectMapActorAt_ location = mapActors_ >-> expectValue_ location
-
     // Items
 
     let items_ = (_.Items), (fun items level -> { level with Items = items })

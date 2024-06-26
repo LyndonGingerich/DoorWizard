@@ -42,10 +42,9 @@ let moveActor direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let movedActor = { actor with Location = targetLocation }
 
-    level
-    |> Optic.set (expectActorWithId_ actorId) movedActor
-    |> Optic.set (mapActorAt_ actor.Location) None
-    |> Optic.set (expectMapActorAt_ targetLocation) actorId
+    { level with
+        Actors = Map.add actorId movedActor level.Actors
+        MapActors = level.MapActors |> Map.remove actor.Location |> Map.add targetLocation actorId }
     |> log (actor.Name + " moved")
 
 let hurtActor damage actorId level =
