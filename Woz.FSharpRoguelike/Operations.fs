@@ -22,7 +22,7 @@ let flush level = { level with Messages = [] }
 // Actor
 
 let actorTarget direction actorId level =
-    let actor = level |> expectActor actorId
+    let actor = level |> getActor actorId
     let targetLocation = actor.Location + direction
     actor, targetLocation
 
@@ -32,7 +32,7 @@ let spawnActor actor level =
         MapActors = Map.add actor.Location actor.Id level.MapActors }
 
 let removeActor actorId level =
-    let actor = level |> expectActor actorId
+    let actor = level |> getActor actorId
 
     { level with
         Actors = Map.remove actorId level.Actors

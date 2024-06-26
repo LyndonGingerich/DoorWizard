@@ -35,12 +35,12 @@ module Level =
 
     let findActor actorId = Optic.get (actorWithId_ actorId)
 
-    let expectActor actorId = Optic.get (expectActorWithId_ actorId)
+    let getActor actorId = Optic.get (expectActorWithId_ actorId)
 
     let isDead actor = actor.Stats.Health.Current = 0
 
     let isPlayerDead level =
-        level |> expectActor level.PlayerId |> isDead
+        level |> getActor level.PlayerId |> isDead
 
     let findDoor location level = level.Doors |> Map.tryFind location
 
