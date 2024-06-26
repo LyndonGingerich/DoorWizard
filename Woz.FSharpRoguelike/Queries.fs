@@ -1,7 +1,5 @@
 ﻿module Queries
 
-open Microsoft.FSharp.Core.Option
-
 open GameTypes
 open Library
 
@@ -19,7 +17,7 @@ module Level =
     let npcIds level = level |> actorIds |> Seq.filter isNpcId
 
     let hasActor location level =
-        level.MapActors |> Map.tryFind location |> isSome
+        level.MapActors |> Map.tryFind location |> Option.isSome
 
     let hasKey keyName actor =
         actor.Backpack.Values
@@ -38,7 +36,8 @@ module Level =
 
     let expectDoor location level = level.Doors[location]
 
-    let hasDoor location level = level |> findDoor location |> isSome
+    let hasDoor location level =
+        level |> findDoor location |> Option.isSome
 
     let private isBlockingTile location level =
         match level |> getTile location with
