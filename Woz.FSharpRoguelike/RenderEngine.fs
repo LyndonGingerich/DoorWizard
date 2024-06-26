@@ -1,10 +1,8 @@
 ﻿module RenderEngine
 
 open System
-open Aether
 
 open GameTypes
-open GameTypes.Level
 open GameTypes.LevelMap
 open Library
 open Queries.Level
@@ -22,8 +20,8 @@ let private doorToChar door =
     | Closed -> '+'
     | Locked _ -> '+'
 
-let private maybeActor location =
-    Optic.get (mapActorAt_ location) >> Option.map (fun actorId -> '@')
+let private maybeActor location level =
+    level.MapActors |> Map.tryFind location |> Option.map (fun actorId -> '@')
 
 let private maybeItems location =
     hasItems location
