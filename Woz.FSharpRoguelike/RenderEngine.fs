@@ -54,7 +54,7 @@ let render level =
         |> Seq.map (fun nextX -> Vector.create nextX currentY)
         |> Seq.map (renderTile level)
         |> Seq.toArray
-        |> System.String
+        |> String
 
     let print strings =
         strings |> Seq.iter (printfn "%s")
