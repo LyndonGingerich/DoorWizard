@@ -5,7 +5,7 @@ open Aether
 
 open GameTypes
 open GameTypes.Level
-open GameTypes.Map
+open GameTypes.LevelMap
 open Library
 open Queries.Level
 

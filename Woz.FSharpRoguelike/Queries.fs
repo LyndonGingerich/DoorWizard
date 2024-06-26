@@ -10,7 +10,7 @@ open Library
 
 module Level =
     let hasCoordinate location level =
-        location >= Map.bottomLeft && location <= Map.topRight level.map
+        location >= LevelMap.bottomLeft && location <= LevelMap.topRight level.map
 
     let getTile location level = level.map[location.y][location.x]
 

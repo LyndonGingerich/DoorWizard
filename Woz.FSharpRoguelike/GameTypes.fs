@@ -15,7 +15,7 @@ type Tile =
 
 type LevelMap = Tile list list
 
-module Map =
+module LevelMap =
     let bottomLeft = Vector.create 0 0
     let width (map: LevelMap) = map[0].Length - 1
     let height (map: LevelMap) = map.Length - 1
