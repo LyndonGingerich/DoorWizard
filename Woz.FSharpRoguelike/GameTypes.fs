@@ -87,8 +87,6 @@ module Actor =
 
     let expectStatFor_ stat = stats_ >-> expectValue_ stat
 
-    let currentHealth_ = (expectStatFor_ Health) >-> StatValue.current_
-
 type Level =
     { PlayerId: int
 
