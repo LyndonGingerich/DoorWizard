@@ -10,12 +10,12 @@ open Queries.Level
 // Messages
 
 let log message level =
-    let messages = message :: level.Messages
-    { level with Messages = messages }
+    { level with
+        Messages = message :: level.Messages }
 
 let logAll newMessages level =
-    let messages = level.Messages |> Seq.append newMessages |> List.ofSeq
-    { level with Messages = messages }
+    { level with
+        Messages = newMessages @ level.Messages }
 
 let flush level = { level with Messages = [] }
 
@@ -94,7 +94,7 @@ let takeItems direction actorId level =
     let newActor = { actor with Backpack = newBackpack }
 
     let messages =
-        locationItems |> Seq.map (fun item -> actor.Name + " took " + item.Name)
+        locationItems |> List.map (fun item -> actor.Name + " took " + item.Name)
 
     level
     |> Optic.set (expectActorWithId_ actorId) newActor
