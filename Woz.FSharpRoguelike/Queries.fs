@@ -5,7 +5,6 @@ open Aether
 
 open GameTypes
 open GameTypes.Actor
-open GameTypes.ItemType
 open GameTypes.Level
 open GameTypes.Map
 open Library
@@ -33,7 +32,7 @@ module Level =
         actor.backpack
         |> Map.toSeq
         |> Seq.map snd
-        |> Seq.filter (_.Type >> isKey)
+        |> Seq.filter (fun item -> item.Type = Key)
         |> Seq.exists (fun i -> i.Name = keyName)
 
     let findActor actorId = Optic.get (actorWithId_ actorId)

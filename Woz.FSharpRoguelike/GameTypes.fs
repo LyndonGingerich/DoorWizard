@@ -64,12 +64,6 @@ type ItemType =
     | Weapon of Weapon
     | Potion of Potion
 
-module ItemType =
-    let isKey item =
-        match item with
-        | Key -> true
-        | _ -> false
-
 type Item =
     { Type: ItemType
       Name: string
