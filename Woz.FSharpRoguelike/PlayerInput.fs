@@ -9,12 +9,12 @@ open Vector.Directions
 open Validation
 
 let private selectActorCommand direction actorId level =
-    match level |> isLockedDoor direction actorId with
-    | Ok l -> l |> buildUnlockDoorCommand direction actorId
-    | Error _ ->
-        match level |> buildOpenDoorCommand direction actorId with
-        | Ok l -> Ok l
-        | Error _ -> level |> buildMoveActorCommand direction actorId
+    level
+    |> isLockedDoor direction actorId
+    |> Result.bind (buildUnlockDoorCommand direction actorId)
+    |> Result.bind (buildOpenDoorCommand direction actorId)
+    |> Result.defaultValue level
+    |> buildMoveActorCommand direction actorId
 
 let rec handleKeyPress activeBuilder actorId =
     let workingBuilder =
