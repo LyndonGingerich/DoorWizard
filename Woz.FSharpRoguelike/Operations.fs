@@ -21,20 +21,9 @@ let flush level = { level with Messages = [] }
 
 // Stats
 
-let private increaseCurrent amount stat =
-    { stat with
-        Current = min (stat.Current + amount) stat.Max }
-
 let private decreaseCurrent amount stat =
     { stat with
         Current = max (stat.Current - amount) 0 }
-
-let private increaseMax amount stat =
-    let newValue = stat.Max + amount
-
-    { stat with
-        Current = newValue
-        Max = newValue }
 
 // Actor
 
