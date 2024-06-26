@@ -79,8 +79,15 @@ let unlockDoor direction actorId level =
 
 // Items
 
-let placeItem (item: Item) location =
-    Optic.set (itemWithId_ location item.Id) (Some item)
+let placeItem (item: Item) location level =
+    let map =
+        Map.tryFind location level.Items
+        |> Option.defaultValue []
+        |> List.filter (Item.hasId item.Id >> not)
+        |> List.prepend item
+        |> Map.add location
+
+    { level with Items = map level.Items }
 
 let private mergeItemMaps items1 items2 =
     let folder items id item = Map.add id item items
