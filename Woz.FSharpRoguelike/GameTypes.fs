@@ -42,6 +42,8 @@ module StatValue =
 
     let max_ = (_.Max), (fun max stat -> { stat with Max = max })
 
+type Stats = { Health: StatValue }
+
 type Slot =
     | Helmet
     | Torso
@@ -76,14 +78,16 @@ type Actor =
     { Id: int
       IsNpc: bool
       Name: string
-      Stats: Map<Stat, StatValue>
+      Stats: Stats
       Location: Vector
       Backpack: Map<int, Item>
       Equipped: Map<Slot, Item>
       Weapon: Item option }
 
 module Actor =
-    let stats_ = (_.Stats), (fun stats actor -> { actor with Stats = stats })
+    let mapHealth f actor =
+        { actor with
+            Actor.Stats.Health = f actor.Stats.Health }
 
 type Level =
     { PlayerId: int

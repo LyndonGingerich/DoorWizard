@@ -37,7 +37,7 @@ module Level =
 
     let expectActor actorId = Optic.get (expectActorWithId_ actorId)
 
-    let isDead actor = actor.Stats[Health].Current = 0
+    let isDead actor = actor.Stats.Health.Current = 0
 
     let isPlayerDead level =
         level |> expectActor level.PlayerId |> isDead

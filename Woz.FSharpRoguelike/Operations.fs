@@ -1,10 +1,8 @@
 ﻿module Operations
 
 open Aether
-open Aether.Operators
 
 open GameTypes
-open GameTypes.Actor
 open GameTypes.Level
 open Library
 open Queries.Level
@@ -69,13 +67,10 @@ let moveActor direction actorId level =
 let hurtActor damage actorId level =
     let actor = level |> Optic.get (expectActorWithId_ actorId)
 
-    let actorHealth_ =
-        expectActorWithId_ actorId >-> stats_ >-> Optics.Map.expectValue_ Health
+    let updateHealth = Actor.mapHealth (decreaseCurrent damage)
 
-    let updatedHealth = decreaseCurrent damage (level |> Optic.get actorHealth_)
-
-    level
-    |> Optic.set actorHealth_ updatedHealth
+    { level with
+        Actors = Map.mapAt actorId updateHealth level.Actors }
     |> log (actor.Name + " took damage")
 
 // Door

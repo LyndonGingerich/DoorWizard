@@ -22,7 +22,7 @@ let private testPlayer =
     { Id = 1
       IsNpc = false
       Name = "player"
-      Stats = [ (Health, { Current = 10; Max = 10 }) ] |> Map.ofSeq
+      Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
       Backpack = Map.empty<int, Item>
       Equipped = Map.empty<Slot, Item>
