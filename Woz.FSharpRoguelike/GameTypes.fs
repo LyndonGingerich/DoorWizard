@@ -42,6 +42,10 @@ module StatValue =
 
     let max_ = (_.Max), (fun max stat -> { stat with Max = max })
 
+    let decreaseCurrent amount m =
+        { m with
+            Current = m.Current - amount |> max 0 }
+
 type Stats = { Health: StatValue }
 
 type Slot =

@@ -19,12 +19,6 @@ let logAll newMessages level =
 
 let flush level = { level with Messages = [] }
 
-// Stats
-
-let private decreaseCurrent amount stat =
-    { stat with
-        Current = max (stat.Current - amount) 0 }
-
 // Actor
 
 let actorTarget direction actorId level =
@@ -57,7 +51,7 @@ let moveActor direction actorId level =
 let hurtActor damage actorId level =
     let actor = level |> Optic.get (expectActorWithId_ actorId)
 
-    let updateHealth = Actor.mapHealth (decreaseCurrent damage)
+    let updateHealth = Actor.mapHealth (StatValue.decreaseCurrent damage)
 
     { level with
         Actors = Map.mapAt actorId updateHealth level.Actors }
