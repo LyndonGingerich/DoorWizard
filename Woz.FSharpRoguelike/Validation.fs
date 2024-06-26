@@ -63,14 +63,6 @@ let private canReach target location =
     else
         Error "You can't reach that"
 
-let private itemsAtLocation location level =
-    let items = level |> itemsAt location
-
-    if items |> Seq.isEmpty then
-        Error "No items to take"
-    else
-        Ok items
-
 let private isValidDirection direction actorId level =
     result {
         let! actor = level |> actorExists actorId
@@ -116,6 +108,9 @@ let canTakeItems direction actorId level =
     result {
         let! actor, validTarget = level |> isValidDirection direction actorId
         let! _ = actor.Location |> canReach validTarget
-        let! _ = level |> itemsAtLocation validTarget
-        return level
+
+        if itemsAt validTarget level |> List.isEmpty then
+            return! Error "No items to take"
+        else
+            return level
     }
