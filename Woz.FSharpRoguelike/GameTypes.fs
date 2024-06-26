@@ -95,10 +95,6 @@ module Actor =
     let backpack_ =
         (_.Backpack), (fun backpack actor -> { actor with Backpack = backpack })
 
-    let backpackItemWithId_ id = backpack_ >-> Map.value_ id
-
-    let expectBackpackItemWithId_ id = backpack_ >-> expectValue_ id
-
 type Level =
     { PlayerId: int
 
