@@ -63,12 +63,6 @@ let private canReach target location =
     else
         Error "You can't reach that"
 
-let private isValidMoveDistance target location =
-    if location |> Vector.distanceFrom target <= 1.0 then
-        Ok target
-    else
-        Error "You can't move that far"
-
 let private itemsAtLocation location level =
     let items = level |> itemsAt location
 
@@ -105,8 +99,7 @@ let private hasKeyForLockedDoor actor door =
 
 let isValidMove direction actorId level =
     result {
-        let! actor, validTarget = level |> isValidDirection direction actorId
-        let! _ = actor.Location |> isValidMoveDistance validTarget
+        let! _, validTarget = level |> isValidDirection direction actorId
         let! _ = level |> isEmptyTile validTarget
         return level
     }
