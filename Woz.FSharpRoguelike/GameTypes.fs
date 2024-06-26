@@ -92,9 +92,6 @@ module Actor =
     let location_ =
         (_.Location), (fun location actor -> { actor with Location = location })
 
-    let backpack_ =
-        (_.Backpack), (fun backpack actor -> { actor with Backpack = backpack })
-
 type Level =
     { PlayerId: int
 

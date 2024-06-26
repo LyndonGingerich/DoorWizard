@@ -114,7 +114,7 @@ let takeItems direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let locationItems = level |> itemsAt targetLocation
     let newBackpack = actor.Backpack |> mergeItemMaps (locationItems |> toItemMap)
-    let newActor = actor |> Optic.set backpack_ newBackpack
+    let newActor = { actor with Backpack = newBackpack }
 
     let messages =
         locationItems |> Seq.map (fun item -> actor.Name + " took " + item.Name)
