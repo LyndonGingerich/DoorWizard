@@ -23,7 +23,7 @@ let private doorExists location level =
 let private canDoorBeOpened actor door =
     match door with
     | Closed -> Ok door
-    | Open -> Error "Thet door is already open"
+    | Open -> Error "That door is already open"
     | Locked _ -> Error "That door is locked"
 
 // actor ignored, give better shape for later
