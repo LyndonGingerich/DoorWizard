@@ -8,11 +8,6 @@ open Queries.Level
 
 // Building blocks
 
-let private actorExists actorId level =
-    match level |> findActor actorId with
-    | Some actor -> Ok actor
-    | None -> Error "The actor does not exist"
-
 let private doorExists location level =
     match level |> findDoor location with
     | Some door -> Ok door
@@ -58,7 +53,7 @@ let private isEmptyTile location level =
 
 let private isValidDirection direction actorId level =
     result {
-        let! actor = level |> actorExists actorId
+        let actor = level.Actors[actorId]
         let targetLocation = actor.Location + direction
         let! validTarget = isValidLocation targetLocation
         return actor, validTarget

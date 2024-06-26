@@ -24,8 +24,6 @@ module Level =
         |> Seq.filter (fun item -> item.Type = Key)
         |> Seq.exists (fun i -> i.Name = keyName)
 
-    let findActor actorId level = level.Actors |> Map.tryFind actorId
-
     let getActor actorId level = level.Actors[actorId]
 
     let isDead actor = actor.Stats.Health.Current = 0
