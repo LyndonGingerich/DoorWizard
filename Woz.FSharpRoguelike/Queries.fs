@@ -6,12 +6,11 @@ open Aether
 open GameTypes
 open GameTypes.Actor
 open GameTypes.Level
-open GameTypes.Map
 open Library
 
 module Level =
     let hasCoordinate location level =
-        location >= Map.bottomLeft && location <= topRight level.map
+        location >= Map.bottomLeft && location <= Map.topRight level.map
 
     let getTile location level = level.map.[location.y].[location.x]
 
