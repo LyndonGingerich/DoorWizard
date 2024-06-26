@@ -11,12 +11,10 @@ type Tile =
 type LevelMap = Tile list list
 
 module LevelMap =
+    let lastRow = 11
+    let lastColumn = 43
     let bottomLeft = Vector.create 0 0
-    let width (map: LevelMap) = map[0].Length - 1
-    let height (map: LevelMap) = map.Length - 1
-
-    let topRight tiles =
-        Vector.create (width tiles) (height tiles)
+    let topRight = Vector.create lastColumn lastRow
 
 type Door =
     | Open

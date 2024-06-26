@@ -4,8 +4,8 @@ open GameTypes
 open Library
 
 module Level =
-    let hasCoordinate location level =
-        location >= LevelMap.bottomLeft && location <= LevelMap.topRight level.Map
+    let hasCoordinate location =
+        location >= LevelMap.bottomLeft && location <= LevelMap.topRight
 
     let getTile location level = level.Map[location.y][location.x]
 
@@ -59,7 +59,7 @@ module Level =
     let private blockMove = [ isBlockingTile; isBlockingDoor; hasActor ]
 
     let private checkLocationFor predicates location level =
-        if hasCoordinate location level then
+        if hasCoordinate location then
             let testPredicate = (fun predicate -> level |> predicate location)
             predicates |> Seq.exists testPredicate
         else

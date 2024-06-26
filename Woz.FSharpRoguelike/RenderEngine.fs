@@ -43,14 +43,13 @@ let private renderTile level location =
     | Some c -> c
     | None -> ' '
 
-let private xs map = seq { 0 .. (topRight map).x }
+let private xs = seq { 0 .. topRight.x }
 
-let private ys map =
-    seq { ((topRight map).y - 1) .. -1 .. 0 }
+let private ys = seq { (topRight.y - 1) .. -1 .. 0 }
 
 let render level =
-    let buildRow map currentY =
-        xs map
+    let buildRow currentY =
+        xs
         |> Seq.map (fun nextX -> Vector.create nextX currentY)
         |> Seq.map (renderTile level)
         |> Seq.toArray
@@ -62,7 +61,7 @@ let render level =
 
     Console.Clear()
 
-    ys level.Map |> Seq.map (buildRow level.Map) |> print
+    ys |> Seq.map buildRow |> print
     level.Messages |> List.rev |> print
 
     level

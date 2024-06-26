@@ -45,8 +45,8 @@ let private hasKeyForDoor keyName actor =
     else
         Error("You need " + keyName + " to unlock that door")
 
-let private isValidLocation location level =
-    if level |> hasCoordinate location then
+let private isValidLocation location =
+    if hasCoordinate location then
         Ok location
     else
         Error "That location is not on the map"
@@ -75,7 +75,7 @@ let private isValidDirection direction actorId level =
     result {
         let! actor = level |> actorExists actorId
         let targetLocation = actor.Location + direction
-        let! validTarget = level |> isValidLocation targetLocation
+        let! validTarget = isValidLocation targetLocation
         return actor, validTarget
     }
 
