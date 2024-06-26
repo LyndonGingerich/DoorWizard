@@ -12,6 +12,7 @@
   <ItemGroup>
     <Compile Include="AetherExtensions.fs" />
     <Compile Include="Monads.fs" />
+    <Compile Include="Map.fs" />
     <Compile Include="Vector.fs" />
     <Compile Include="GameTypes.fs" />
     <Compile Include="Queries.fs" />
