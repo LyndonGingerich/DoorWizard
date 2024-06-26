@@ -29,6 +29,9 @@ let spawnActor actor level =
         MapActors = Map.add actor.Location actor.Id level.MapActors }
 
 let removeActor actorId level =
+    if actorId = playerId then
+        failwith "Must not remove the player without ending the game"
+
     let actor = level |> getActor actorId
 
     { level with
