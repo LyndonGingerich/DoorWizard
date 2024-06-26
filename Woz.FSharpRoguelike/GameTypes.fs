@@ -43,25 +43,12 @@ module StatValue =
 
 type Stats = { Health: StatValue }
 
-type Slot =
-    | Helmet
-    | Torso
-    | Legs
-    | Gloves
-    | Boots
-
-type Armor =
-    { Slot: Slot
-      Defense: int
-      Absorbs: int }
-
 type Weapon = { Attack: int; Damage: int }
 
 type Potion = { Stat: Stat; Effect: int }
 
 type ItemType =
     | Key
-    | Armor of Armor
     | Weapon of Weapon
     | Potion of Potion
 
@@ -79,7 +66,6 @@ type Actor =
       Stats: Stats
       Location: Vector
       Backpack: Map<int, Item>
-      Equipped: Map<Slot, Item>
       Weapon: Item option }
 
 module Actor =

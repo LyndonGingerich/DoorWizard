@@ -24,7 +24,6 @@ let private testPlayer =
       Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
       Backpack = Map.empty<int, Item>
-      Equipped = Map.empty<Slot, Item>
       Weapon = None }
 
 let private charToTile character =
