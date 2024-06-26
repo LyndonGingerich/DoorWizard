@@ -1,10 +1,8 @@
 ﻿module Queries
 
 open Microsoft.FSharp.Core.Option
-open Aether
 
 open GameTypes
-open GameTypes.Level
 open Library
 
 module Level =
@@ -75,13 +73,15 @@ module Level =
 
     let locationBlocksMove = checkLocationFor blockMove
 
-    let itemsAt location = Optic.get (itemsAt_ location)
+    let itemsAt location level =
+        level.Items |> Map.tryFind location |> Option.defaultValue []
 
     let toItemMap = List.map (fun (item: Item) -> (item.Id, item)) >> Map.ofList
 
     let hasItems location = itemsAt location >> Seq.isEmpty >> not
 
-    let findItem location id = Optic.get (itemWithId_ location id)
+    let findItem location id =
+        itemsAt location >> List.tryFind (Item.hasId id)
 
     let expectItem location id =
-        Optic.get (expectItemWithId_ location id)
+        itemsAt location >> List.find (Item.hasId id)
