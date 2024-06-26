@@ -43,9 +43,10 @@ let actorTarget direction actorId level =
     let targetLocation = actor.Location + direction
     actor, targetLocation
 
-let spawnActor actor =
-    Optic.set (expectActorWithId_ actor.Id) actor
-    >> Optic.set (expectMapActorAt_ actor.Location) actor.Id
+let spawnActor actor level =
+    { level with
+        Actors = Map.add actor.Id actor level.Actors
+        MapActors = Map.add actor.Location actor.Id level.MapActors }
 
 let removeActor actorId level =
     let actor = level |> expectActor actorId
