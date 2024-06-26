@@ -98,10 +98,6 @@ type Level =
       Messages: List<string> }
 
 module Level =
-    // Doors
-
-    let doors_ = (_.Doors), (fun doors level -> { level with Doors = doors })
-
     // Actors
 
     let actors_ = (_.Actors), (fun actors level -> { level with Actors = actors })
