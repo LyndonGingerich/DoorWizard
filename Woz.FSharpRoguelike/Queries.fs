@@ -20,7 +20,7 @@ module Level =
         level.MapActors |> Map.tryFind location |> Option.isSome
 
     let hasKey keyName actor =
-        actor.Backpack.Values
+        actor.Backpack
         |> Seq.filter (fun item -> item.Type = Key)
         |> Seq.exists (fun i -> i.Name = keyName)
 
@@ -70,12 +70,4 @@ module Level =
     let itemsAt location level =
         level.Items |> Map.tryFind location |> Option.defaultValue []
 
-    let toItemMap = List.map (fun (item: Item) -> (item.Id, item)) >> Map.ofList
-
     let hasItems location = itemsAt location >> Seq.isEmpty >> not
-
-    let findItem location id =
-        itemsAt location >> List.tryFind (Item.hasId id)
-
-    let expectItem location id =
-        itemsAt location >> List.find (Item.hasId id)

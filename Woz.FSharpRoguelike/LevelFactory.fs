@@ -23,7 +23,7 @@ let private playerInit =
       Name = "player"
       Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
-      Backpack = Map.empty<int, Item> }
+      Backpack = [] }
 
 let private charToTile character =
     match character with
@@ -34,11 +34,10 @@ let private charToTile character =
 
 let private basicKey = "Basic key"
 
-let private testItem1 = { Type = Key; Id = 2; Name = basicKey }
+let private testItem1 = { Type = Key; Name = basicKey }
 
 let private testItem2 =
-    { Id = 3
-      Name = "Minor health potion"
+    { Name = "Minor health potion"
       Type = Potion { Stat = Health; Effect = 5 } }
 
 let private testMap =

@@ -67,23 +67,15 @@ let unlockDoor direction actorId level =
 // Items
 
 let placeItem (item: Item) location level =
-    let addItem =
-        Option.defaultValue []
-        >> List.filter (Item.hasId item.Id >> not)
-        >> List.prepend item
-        >> Some
+    let addItem = Option.defaultValue [] >> List.prepend item >> Some
 
     { level with
         Items = Map.change location addItem level.Items }
 
-let private mergeItemMaps items1 items2 =
-    let folder items id item = Map.add id item items
-    Map.fold folder items1 items2
-
 let takeItems direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let locationItems = level |> itemsAt targetLocation
-    let newBackpack = actor.Backpack |> mergeItemMaps (locationItems |> toItemMap)
+    let newBackpack = actor.Backpack @ locationItems
     let newActor = { actor with Backpack = newBackpack }
 
     let messages =

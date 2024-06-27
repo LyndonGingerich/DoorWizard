@@ -50,20 +50,14 @@ type ItemType =
     | Weapon of Weapon
     | Potion of Potion
 
-type Item =
-    { Type: ItemType
-      Name: string
-      Id: int }
-
-module Item =
-    let hasId id m = m.Id = id
+type Item = { Type: ItemType; Name: string }
 
 type Actor =
     { Id: int
       Name: string
       Stats: Stats
       Location: Vector
-      Backpack: Map<int, Item> }
+      Backpack: Item list }
 
 module Actor =
     let mapHealth f actor =
