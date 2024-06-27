@@ -9,19 +9,19 @@ open Queries.Level
 let private doorExists location level =
     OperationResult.ofOption "There is no door there" (findDoor location level)
 
-let private canDoorBeOpened actor door =
+let private canDoorBeOpened door =
     match door with
-    | Closed -> OperationResult.success door
-    | Open -> OperationResult.failure "That door is already open"
-    | Locked _ -> OperationResult.failure "That door is locked"
+    | Closed -> None
+    | Open -> "That door is already open" |> Some
+    | Locked _ -> "That door is locked" |> Some
 
-let private canDoorBeClosed actor door =
+let private canDoorBeClosed door =
     match door with
-    | Open -> OperationResult.success door
-    | Closed -> OperationResult.failure "That door is already closed"
-    | Locked _ -> OperationResult.failure "That door is locked closed"
+    | Open -> None
+    | Closed -> "That door is already closed" |> Some
+    | Locked _ -> "That door is locked closed" |> Some
 
-let private canDoorBeUnlocked actor door =
+let private canDoorBeUnlocked door =
     match door with
     | Locked keyName -> OperationResult.success keyName
     | _ -> OperationResult.failure "That door is not locked"
@@ -40,17 +40,9 @@ let private isValidDirection direction actorId level =
         return validTarget
     }
 
-let private testDoorWith test direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-        let! door = level |> doorExists validTarget
-        let! _ = door |> test level.Actors[actorId]
-        return level
-    }
-
 let private hasKeyForLockedDoor actor door =
     result {
-        let! keyName = door |> canDoorBeUnlocked actor
+        let! keyName = canDoorBeUnlocked door
 
         if not (hasKey keyName actor) then
             return! OperationResult.failure ("You need " + keyName + " to unlock that door")
@@ -70,13 +62,41 @@ let isValidMove direction actorId level =
             return level
     }
 
-let canOpenDoor = testDoorWith canDoorBeOpened
+let canOpenDoor direction actorId level =
+    result {
+        let! validTarget = level |> isValidDirection direction actorId
+        let! door = level |> doorExists validTarget
 
-let canCloseDoor = testDoorWith canDoorBeClosed
+        match canDoorBeOpened door with
+        | None -> return level
+        | Some error -> return! OperationResult.failure error
+    }
 
-let isLockedDoor = testDoorWith canDoorBeUnlocked
+let canCloseDoor direction actorId level =
+    result {
+        let! validTarget = level |> isValidDirection direction actorId
+        let! door = level |> doorExists validTarget
 
-let canUnlockDoor = testDoorWith hasKeyForLockedDoor
+        match canDoorBeClosed door with
+        | None -> return level
+        | Some error -> return! OperationResult.failure error
+    }
+
+let isLockedDoor direction actorId level =
+    result {
+        let! validTarget = level |> isValidDirection direction actorId
+        let! door = level |> doorExists validTarget
+        let! _ = canDoorBeUnlocked door
+        return level
+    }
+
+let canUnlockDoor direction actorId level =
+    result {
+        let! validTarget = level |> isValidDirection direction actorId
+        let! door = level |> doorExists validTarget
+        let! _ = hasKeyForLockedDoor level.Actors[actorId] door
+        return level
+    }
 
 let canTakeItems direction actorId level =
     result {
