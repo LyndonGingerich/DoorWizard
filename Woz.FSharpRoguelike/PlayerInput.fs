@@ -17,7 +17,7 @@ let rec handleKeyPress activeBuilder level =
 
     if level.Messages.IsEmpty then
         match inputKey with
-        | ConsoleKey.D5 -> handleKeyPress (Some buildOpenDoorCommand)
+        | ConsoleKey.O -> handleKeyPress (Some buildOpenDoorCommand)
         | ConsoleKey.C -> handleKeyPress (Some buildCloseDoorCommand)
         | ConsoleKey.U -> handleKeyPress (Some buildUnlockDoorCommand)
         | ConsoleKey.T -> handleKeyPress (Some buildTakeItemsCommand)
