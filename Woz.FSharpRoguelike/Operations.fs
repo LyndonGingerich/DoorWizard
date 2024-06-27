@@ -75,13 +75,21 @@ let placeItem (item: Item) location level =
 let takeItems direction actorId level =
     let actor, targetLocation = level |> actorTarget direction actorId
     let locationItems = level |> itemsAt targetLocation
-    let newBackpack = actor.Backpack @ locationItems
-    let newActor = { actor with Backpack = newBackpack }
+    let newWielded = locationItems.Head
+    let newLocationItems = locationItems.Tail @ Option.toList actor.WieldedItem
 
-    let messages =
-        locationItems |> List.map (fun item -> actor.Name + " took " + item.Name)
+    let newActor =
+        { actor with
+            WieldedItem = Some newWielded }
+
+    let message =
+        let pickUp = $"You pick up %s{newWielded.Name}."
+
+        match actor.WieldedItem with
+        | Some oldWielded -> $"%s{pickUp} You drop {oldWielded.Name}."
+        | None -> pickUp
 
     { level with
         Actors = Map.add actorId newActor level.Actors
-        Items = Map.remove targetLocation level.Items }
-    |> logAll messages
+        Items = Map.add targetLocation newLocationItems level.Items }
+    |> logAll [ message ]

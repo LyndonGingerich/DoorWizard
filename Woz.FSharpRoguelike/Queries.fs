@@ -20,9 +20,9 @@ module Level =
         level.MapActors |> Map.tryFind location |> Option.isSome
 
     let hasKey keyName actor =
-        actor.Backpack
-        |> Seq.filter (fun item -> item.Type = Key)
-        |> Seq.exists (fun i -> i.Name = keyName)
+        match actor.WieldedItem with
+        | Some { Type = Key; Name = wieldedName } -> wieldedName = keyName
+        | _ -> false
 
     let getActor actorId level = level.Actors[actorId]
 

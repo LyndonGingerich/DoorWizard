@@ -53,7 +53,7 @@ type Actor =
       Name: string
       Stats: Stats
       Location: Vector
-      Backpack: Item list }
+      WieldedItem: Item option }
 
 module Actor =
     let mapHealth f actor =
