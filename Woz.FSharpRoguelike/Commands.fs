@@ -15,10 +15,9 @@ let private buildCommand
     (validator: Vector -> int -> Level -> _)
     (operation: Vector -> int -> Level -> Level)
     direction
-    actorId
     =
-    let test = validator direction actorId
-    let action = operation direction actorId
+    let test = validator direction playerId
+    let action = operation direction playerId
     composeCommand test action
 
 let invalidCommand _ =
