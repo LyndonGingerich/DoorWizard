@@ -31,10 +31,6 @@ type Stat =
 type StatValue = { Current: int; Max: int }
 
 module StatValue =
-    let current_ = (_.Current), (fun current stat -> { stat with Current = current })
-
-    let max_ = (_.Max), (fun max stat -> { stat with Max = max })
-
     let decreaseCurrent amount m =
         { m with
             Current = m.Current - amount |> max 0 }
