@@ -9,12 +9,6 @@ open Queries.Level
 let private doorExists location level =
     OperationResult.ofOption "There is no door there" (findDoor location level)
 
-let private canDoorBeOpened door =
-    match door with
-    | Closed -> None
-    | Open -> "That door is already open" |> Some
-    | Locked _ -> "That door is locked" |> Some
-
 let private canDoorBeClosed door =
     match door with
     | Open -> None
@@ -67,9 +61,10 @@ let canOpenDoor direction actorId level =
         let! validTarget = level |> isValidDirection direction actorId
         let! door = level |> doorExists validTarget
 
-        match canDoorBeOpened door with
-        | None -> return level
-        | Some error -> return! OperationResult.failure error
+        match door with
+        | Closed -> return level
+        | Open -> return! OperationResult.failure "That door is already open"
+        | Locked _ -> return! OperationResult.failure "That door is locked"
     }
 
 let canCloseDoor direction actorId level =
