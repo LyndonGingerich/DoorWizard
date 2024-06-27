@@ -47,6 +47,28 @@ let private xs = seq { 0 .. topRight.x }
 
 let private ys = seq { (topRight.y - 1) .. -1 .. 0 }
 
+let printAll strings =
+    strings |> Seq.iter (printfn "%s")
+    printfn ""
+
+let print string = printfn $"%s{string}\n"
+
+let printNextMessage level =
+    let maybeMessage, level = Level.popMessage level
+
+    match maybeMessage with
+    | Some message ->
+        let message =
+            if not level.Messages.IsEmpty then
+                $"{message}--More--"
+            else
+                message
+
+        print message
+    | None -> ()
+
+    level
+
 let render level =
     let buildRow currentY =
         xs
@@ -55,13 +77,10 @@ let render level =
         |> Seq.toArray
         |> String
 
-    let print strings =
-        strings |> Seq.iter (printfn "%s")
-        printfn ""
-
     Console.Clear()
 
-    ys |> Seq.map buildRow |> print
-    level.Messages |> List.rev |> print
+    ys |> Seq.map buildRow |> printAll
+
+    let level = printNextMessage level
 
     level

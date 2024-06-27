@@ -8,9 +8,7 @@ open Queries.Level
 
 let logAll newMessages level =
     { level with
-        Level.Messages = newMessages @ level.Messages }
-
-let flush level = { level with Level.Messages = [] }
+        Level.Messages = level.Messages @ newMessages }
 
 // Actor
 

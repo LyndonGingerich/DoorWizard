@@ -32,8 +32,7 @@ let private runTurn playerCommand level =
     turnResult.Contents |> Option.defaultValue level |> logAll turnResult.Messages
 
 let rec gameLoop level =
-    let playerCommand = getPlayerCommand ()
-    let turnLevel = level |> runTurn playerCommand |> render |> flush
+    let turnLevel = level |> runTurn (getPlayerCommand ()) |> render
 
     if turnLevel |> isPlayerDead then
         ()

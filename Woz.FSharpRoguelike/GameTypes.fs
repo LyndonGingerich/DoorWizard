@@ -80,4 +80,10 @@ type Level =
 
       Messages: List<string> }
 
+module Level =
+    let popMessage m =
+        match m.Messages with
+        | head :: tail -> Some head, { m with Messages = tail }
+        | [] -> None, m
+
 let playerId = 1
