@@ -26,12 +26,6 @@ let private canDoorBeUnlocked actor door =
     | Locked keyName -> OperationResult.success keyName
     | _ -> OperationResult.failure "That door is not locked"
 
-let private hasKeyForDoor keyName actor =
-    if actor |> hasKey keyName then
-        OperationResult.success keyName
-    else
-        OperationResult.failure ("You need " + keyName + " to unlock that door")
-
 let private isValidLocation location =
     if hasCoordinate location then
         OperationResult.success location
@@ -63,8 +57,11 @@ let private testDoorWith test direction actorId level =
 let private hasKeyForLockedDoor actor door =
     result {
         let! keyName = door |> canDoorBeUnlocked actor
-        let! _ = actor |> hasKeyForDoor keyName
-        return door
+
+        if not (hasKey keyName actor) then
+            return! OperationResult.failure ("You need " + keyName + " to unlock that door")
+        else
+            return door
     }
 
 // Validators
