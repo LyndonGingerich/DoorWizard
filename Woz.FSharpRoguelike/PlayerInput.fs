@@ -6,28 +6,12 @@ open Library
 open GameTypes
 open Commands
 open Vector.Directions
-open Validation
-
-let private selectActorCommand direction actorId level =
-    let result1 =
-        level
-        |> isLockedDoor direction actorId
-        |> OperationResult.bind (buildUnlockDoorCommand direction actorId)
-        |> OperationResult.bind (buildOpenDoorCommand direction actorId)
-
-    let result2 =
-        result1.Contents
-        |> Option.defaultValue level
-        |> buildMoveActorCommand direction actorId
-
-    { result2 with
-        Messages = result1.Messages @ result2.Messages }
 
 let rec handleKeyPress activeBuilder actorId level =
     let workingBuilder =
         match activeBuilder with
         | Some builder -> builder
-        | None -> selectActorCommand
+        | None -> buildMoveActorCommand
 
     let inputKey = Console.ReadKey().Key
 
