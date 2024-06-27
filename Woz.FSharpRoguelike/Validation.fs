@@ -32,12 +32,6 @@ let private isValidLocation location =
     else
         OperationResult.failure "That location is not on the map"
 
-let private isEmptyTile location level =
-    if level |> locationBlocksMove location then
-        OperationResult.failure "You can't move there"
-    else
-        OperationResult.success (getTile location level)
-
 let private isValidDirection direction actorId level =
     result {
         let actor = level.Actors[actorId]
@@ -69,8 +63,11 @@ let private hasKeyForLockedDoor actor door =
 let isValidMove direction actorId level =
     result {
         let! _, validTarget = level |> isValidDirection direction actorId
-        let! _ = level |> isEmptyTile validTarget
-        return level
+
+        if locationBlocksMove validTarget level then
+            return! OperationResult.failure "You can't move there"
+        else
+            return level
     }
 
 let canOpenDoor = testDoorWith canDoorBeOpened
