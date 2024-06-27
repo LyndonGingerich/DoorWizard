@@ -37,14 +37,14 @@ let private isValidDirection direction actorId level =
         let actor = level.Actors[actorId]
         let targetLocation = actor.Location + direction
         let! validTarget = isValidLocation targetLocation
-        return actor, validTarget
+        return validTarget
     }
 
 let private testDoorWith test direction actorId level =
     result {
-        let! actor, validTarget = level |> isValidDirection direction actorId
+        let! validTarget = level |> isValidDirection direction actorId
         let! door = level |> doorExists validTarget
-        let! _ = door |> test actor
+        let! _ = door |> test level.Actors[actorId]
         return level
     }
 
@@ -62,7 +62,7 @@ let private hasKeyForLockedDoor actor door =
 
 let isValidMove direction actorId level =
     result {
-        let! _, validTarget = level |> isValidDirection direction actorId
+        let! validTarget = level |> isValidDirection direction actorId
 
         if locationBlocksMove validTarget level then
             return! OperationResult.failure "You can't move there"
@@ -80,7 +80,7 @@ let canUnlockDoor = testDoorWith hasKeyForLockedDoor
 
 let canTakeItems direction actorId level =
     result {
-        let! _, validTarget = level |> isValidDirection direction actorId
+        let! validTarget = level |> isValidDirection direction actorId
 
         if itemsAt validTarget level |> List.isEmpty then
             return! OperationResult.failure "No items to take"
