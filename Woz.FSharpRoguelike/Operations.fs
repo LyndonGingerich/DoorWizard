@@ -6,10 +6,6 @@ open Queries.Level
 
 // Messages
 
-let log message level =
-    { level with
-        Level.Messages = message :: level.Messages }
-
 let logAll newMessages level =
     { level with
         Level.Messages = newMessages @ level.Messages }
@@ -45,16 +41,12 @@ let moveActor direction actorId level =
     { level with
         Actors = Map.add actorId movedActor level.Actors
         MapActors = level.MapActors |> Map.remove actor.Location |> Map.add targetLocation actorId }
-    |> log (actor.Name + " moved")
 
 let hurtActor damage actorId level =
-    let actor = level.Actors[actorId]
-
     let updateHealth = Actor.mapHealth (StatValue.decreaseCurrent damage)
 
     { level with
         Actors = Map.mapAt actorId updateHealth level.Actors }
-    |> log (actor.Name + " took damage")
 
 // Door
 
@@ -63,19 +55,16 @@ let placeDoor state location level =
         Doors = Map.add location state level.Doors }
 
 let openDoor direction actorId level =
-    let actor, targetLocation = level |> actorTarget direction actorId
-    level |> placeDoor Open targetLocation |> log (actor.Name + " opened a door")
+    let _, targetLocation = level |> actorTarget direction actorId
+    level |> placeDoor Open targetLocation
 
 let closeDoor direction actorId level =
-    let actor, targetLocation = level |> actorTarget direction actorId
-    level |> placeDoor Closed targetLocation |> log (actor.Name + " closed a door")
+    let _, targetLocation = level |> actorTarget direction actorId
+    level |> placeDoor Closed targetLocation
 
 let unlockDoor direction actorId level =
-    let actor, targetLocation = level |> actorTarget direction actorId
-
-    level
-    |> placeDoor Closed targetLocation
-    |> log (actor.Name + " unlocked a door")
+    let _, targetLocation = level |> actorTarget direction actorId
+    level |> placeDoor Closed targetLocation
 
 // Items
 
