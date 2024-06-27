@@ -38,7 +38,7 @@ let private testItem1 = { Type = Key; Name = basicKey }
 
 let private testItem2 =
     { Name = "Minor health potion"
-      Type = Potion { Stat = Health; Effect = 5 } }
+      Type = Potion }
 
 let private testMap =
     let rowToTiles row = row |> Seq.map charToTile |> List.ofSeq

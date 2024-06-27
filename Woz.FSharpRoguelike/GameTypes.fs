@@ -39,12 +39,9 @@ type Stats = { Health: StatValue }
 
 type Weapon = { Attack: int; Damage: int }
 
-type Potion = { Stat: Stat; Effect: int }
-
 type ItemType =
     | Key
-    | Weapon of Weapon
-    | Potion of Potion
+    | Potion
 
 type Item = { Type: ItemType; Name: string }
 
@@ -65,9 +62,7 @@ type Level =
       Doors: Map<Vector, Door>
       Actors: Map<int, Actor>
       Items: Map<Vector, List<Item>>
-
       MapActors: Map<Vector, int>
-
       Messages: List<string> }
 
 module Level =
