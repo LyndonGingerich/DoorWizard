@@ -21,6 +21,7 @@ let rec handleKeyPress activeBuilder level =
         | ConsoleKey.C -> handleKeyPress (Some buildCloseDoorCommand)
         | ConsoleKey.U -> handleKeyPress (Some buildUnlockDoorCommand)
         | ConsoleKey.T -> handleKeyPress (Some buildTakeItemsCommand)
+        | ConsoleKey.D5 -> handleKeyPress (Some doorBoltCommand)
         | ConsoleKey.D9 -> workingBuilder northEast
         | ConsoleKey.D8 -> workingBuilder north
         | ConsoleKey.D7 -> workingBuilder northWest

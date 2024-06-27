@@ -38,3 +38,20 @@ let buildCloseDoorCommand = buildCommand canCloseDoor closeDoor
 let buildUnlockDoorCommand = buildCommand canUnlockDoor unlockDoor
 
 let buildTakeItemsCommand = buildCommand canTakeItems takeItems
+
+let doorBolt direction level =
+    let player = level.Actors[playerId]
+
+    let rec inner location level =
+        let newLocation = location + direction
+
+        if Queries.Level.isBlockingTile newLocation level then
+            level
+        else
+            level |> placeDoor Open newLocation |> inner newLocation
+
+    inner player.Location level
+
+let doorBoltCommand direction level =
+    { Contents = doorBolt direction level |> Some
+      Messages = [ "Schloop!" ] }
