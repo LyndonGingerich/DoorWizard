@@ -33,7 +33,7 @@ let private runTurn playerCommand level =
     | Error message -> level |> log message
 
 let rec gameLoop level =
-    let playerCommand = level |> getPlayerCommand
+    let playerCommand = getPlayerCommand ()
     let turnLevel = level |> runTurn playerCommand |> render |> flush
 
     if turnLevel |> isPlayerDead then

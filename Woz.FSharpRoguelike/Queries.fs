@@ -11,14 +11,12 @@ module Level =
 
     let getTile location level = level.Map[location.y][location.x]
 
-    let isPlayerId level = (=) level.PlayerId
-    let isNpcId level = (<>) level.PlayerId
+    let isPlayerId id = id = playerId
+    let isNpcId id = id <> playerId
 
     let actorIds level = level.Actors.Keys
 
-    let npcIds level =
-        let isNpc = isNpcId level
-        level |> actorIds |> Seq.filter isNpc
+    let npcIds level = level |> actorIds |> Seq.filter isNpcId
 
     let hasActor location level =
         level.MapActors |> Map.tryFind location |> isSome
@@ -34,8 +32,7 @@ module Level =
 
     let isDead actor = actor.Stats.Health.Current = 0
 
-    let isPlayerDead level =
-        level |> getActor level.PlayerId |> isDead
+    let isPlayerDead level = level |> getActor playerId |> isDead
 
     let findDoor location level = level.Doors |> Map.tryFind location
 

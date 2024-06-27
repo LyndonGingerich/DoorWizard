@@ -19,7 +19,7 @@ let private testLevelTemplate =
       "                                            " ] // y = 11
 
 let private playerInit =
-    { Id = 1
+    { Id = playerId
       Name = "player"
       Stats = { Health = { Current = 10; Max = 10 } }
       Location = Vector.create 9 6
@@ -48,8 +48,7 @@ let private testMap =
 
 let testLevel =
     let level =
-        { PlayerId = playerInit.Id
-          Map = testMap
+        { Map = testMap
           Doors = Map.empty<Vector, Door>
           Actors = Map.empty<int, Actor>
           Items = Map.empty<Vector, List<Item>>

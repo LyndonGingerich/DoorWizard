@@ -40,4 +40,4 @@ let rec handleKeyPress activeBuilder actorId =
 
 let getCommandForActor = handleKeyPress None
 
-let getPlayerCommand level = level.PlayerId |> getCommandForActor
+let getPlayerCommand () = playerId |> getCommandForActor

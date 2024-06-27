@@ -73,9 +73,7 @@ module Actor =
             Actor.Stats.Health = f actor.Stats.Health }
 
 type Level =
-    { PlayerId: int
-
-      Map: LevelMap
+    { Map: LevelMap
       Doors: Map<Vector, Door>
       Actors: Map<int, Actor>
       Items: Map<Vector, List<Item>>
@@ -83,3 +81,5 @@ type Level =
       MapActors: Map<Vector, int>
 
       Messages: List<string> }
+
+let playerId = 1
