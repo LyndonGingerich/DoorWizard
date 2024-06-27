@@ -46,16 +46,6 @@ let private hasKeyForLockedDoor actor door =
 
 // Validators
 
-let isValidMove direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-
-        if locationBlocksMove validTarget level then
-            return! OperationResult.failure "You can't move there"
-        else
-            return level
-    }
-
 let canOpenDoor direction actorId level =
     result {
         let! validTarget = level |> isValidDirection direction actorId

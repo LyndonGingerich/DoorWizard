@@ -11,7 +11,7 @@ let rec handleKeyPress activeBuilder actorId level =
     let workingBuilder =
         match activeBuilder with
         | Some builder -> builder
-        | None -> buildMoveActorCommand
+        | None -> fun vector _ -> movePlayer vector
 
     let inputKey = Console.ReadKey().Key
 

@@ -16,9 +16,6 @@ module Level =
 
     let npcIds level = level |> actorIds |> Seq.filter isNpcId
 
-    let hasActor location level =
-        level.MapActors |> Map.tryFind location |> Option.isSome
-
     let hasKey keyName actor =
         match actor.WieldedItem with
         | Some { Type = Key; Name = wieldedName } -> wieldedName = keyName
@@ -37,7 +34,7 @@ module Level =
     let hasDoor location level =
         level |> findDoor location |> Option.isSome
 
-    let private isBlockingTile location level =
+    let isBlockingTile location level =
         match level |> getTile location with
         | Void
         | Wall -> true
@@ -54,7 +51,6 @@ module Level =
         | None -> false
 
     let private blockView = [ isBlockingTile; isBlockingDoor ]
-    let private blockMove = [ isBlockingTile; isBlockingDoor; hasActor ]
 
     let private checkLocationFor predicates location level =
         if hasCoordinate location then
@@ -64,8 +60,6 @@ module Level =
             true
 
     let locationBlocksView = checkLocationFor blockView
-
-    let locationBlocksMove = checkLocationFor blockMove
 
     let itemsAt location level =
         level.Items |> Map.tryFind location |> Option.defaultValue []

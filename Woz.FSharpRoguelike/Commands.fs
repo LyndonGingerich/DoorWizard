@@ -26,7 +26,11 @@ let invalidCommand _ =
 
 let idleCommand (level: Level) = OperationResult.success level
 
-let buildMoveActorCommand = buildCommand isValidMove moveActor
+let movePlayer move level =
+    let newLevel, messages = Operations.move move level
+
+    { Contents = Some newLevel
+      Messages = messages }
 
 let buildOpenDoorCommand = buildCommand canOpenDoor openDoor
 

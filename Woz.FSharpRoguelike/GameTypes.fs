@@ -57,6 +57,8 @@ module Actor =
         { actor with
             Actor.Stats.Health = f actor.Stats.Health }
 
+    let expendItem actor = { actor with WieldedItem = None }
+
 type Level =
     { Map: LevelMap
       Doors: Map<Vector, Door>

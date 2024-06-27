@@ -32,19 +32,45 @@ let removeActor actorId level =
         Actors = Map.remove actorId level.Actors
         MapActors = Map.remove actor.Location level.MapActors }
 
-let moveActor direction actorId level =
-    let actor, targetLocation = level |> actorTarget direction actorId
+let moveActor targetLocation actor level =
     let movedActor = { actor with Location = targetLocation }
 
     { level with
-        Actors = Map.add actorId movedActor level.Actors
-        MapActors = level.MapActors |> Map.remove actor.Location |> Map.add targetLocation actorId }
+        Actors = Map.add actor.Id movedActor level.Actors
+        MapActors = level.MapActors |> Map.remove actor.Location |> Map.add targetLocation actor.Id }
 
 let hurtActor damage actorId level =
     let updateHealth = Actor.mapHealth (StatValue.decreaseCurrent damage)
 
     { level with
         Actors = Map.mapAt actorId updateHealth level.Actors }
+
+let move vector level =
+    let player = level.Actors[playerId]
+    let newLocation = player.Location + vector
+
+    if isBlockingTile newLocation level then
+        level, []
+    else
+        match Map.tryFind newLocation level.Doors with
+        | None
+        | Some Open -> moveActor newLocation player level, []
+        | Some Closed ->
+            { level with
+                Doors = Map.add newLocation Open level.Doors },
+            [ "The door opens." ]
+        | Some(Locked keyName) ->
+            match player.WieldedItem with
+            | Some { Type = Key; Name = itemName } ->
+                if itemName = keyName then
+                    { level with
+                        Doors = Map.add newLocation Closed level.Doors
+                        Actors = Map.add playerId (Actor.expendItem player) level.Actors },
+                    [ "You use your key to unlock the door." ]
+                else
+                    level, [ $"You scratch futilely at the {keyName} door with your {itemName} key." ]
+            | Some _
+            | None -> level, [ "The door is locked." ]
 
 // Door
 
