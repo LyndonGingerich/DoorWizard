@@ -10,9 +10,6 @@ let buildCommand (validator: Vector -> int -> Level -> _) (operation: Vector -> 
         return operation direction playerId validLevel
     }
 
-let invalidCommand _ =
-    OperationResult.failure "Unknown command"
-
 let movePlayer move level =
     Operations.move move level |> OperationResult.ofTuple
 

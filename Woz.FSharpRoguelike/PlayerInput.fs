@@ -49,7 +49,7 @@ let handleKeyPress level =
             | Some action -> OperationResult.ofTuple ({ level with NextAction = Some action }, [])
             | None ->
                 match inputKey with
-                | _ -> invalidCommand
+                | _ -> fun _ -> OperationResult.failure "Unknown command"
                 <| level
     else
         OperationResult.success level
