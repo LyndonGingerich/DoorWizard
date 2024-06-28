@@ -3,7 +3,6 @@
 open System
 
 open GameLoop
-open RenderEngine
 open LevelFactory
 
 [<EntryPoint>]

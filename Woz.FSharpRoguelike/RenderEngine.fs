@@ -49,6 +49,16 @@ let private renderTile level location =
     | Some c -> c
     | None -> ' '
 
+let buildLevel level =
+    let buildRow level currentY =
+        xs
+        |> Seq.map (fun nextX -> Vector.create nextX currentY)
+        |> Seq.map (renderTile level)
+        |> Seq.toArray
+        |> String
+
+    ys |> Seq.map (buildRow level)
+
 let printAll strings =
     strings |> Seq.iter (printfn "%s")
     printfn ""
@@ -67,20 +77,3 @@ let getMaybeNextMessage level =
                 message)
 
     level, maybeMessage
-
-let render level =
-    let buildRow currentY =
-        xs
-        |> Seq.map (fun nextX -> Vector.create nextX currentY)
-        |> Seq.map (renderTile level)
-        |> Seq.toArray
-        |> String
-
-    Console.Clear()
-
-    ys |> Seq.map buildRow |> printAll
-
-    let level, maybeMessage = getMaybeNextMessage level
-    Option.iter print maybeMessage
-
-    level
