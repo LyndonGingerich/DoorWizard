@@ -17,6 +17,8 @@ module LevelMap =
     let lastColumn = 43
     let bottomLeft = Vector.create 0 0
     let topRight = Vector.create lastColumn lastRow
+    let xs = [ 0 .. topRight.X ]
+    let ys = [ (topRight.Y - 1) .. -1 .. 0 ]
 
 type Door =
     | Open

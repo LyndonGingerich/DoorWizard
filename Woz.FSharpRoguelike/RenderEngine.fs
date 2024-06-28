@@ -49,10 +49,6 @@ let private renderTile level location =
     | Some c -> c
     | None -> ' '
 
-let private xs = seq { 0 .. topRight.X }
-
-let private ys = seq { (topRight.Y - 1) .. -1 .. 0 }
-
 let printAll strings =
     strings |> Seq.iter (printfn "%s")
     printfn ""
