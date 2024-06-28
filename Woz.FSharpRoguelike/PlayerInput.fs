@@ -49,7 +49,6 @@ let handleKeyPress level =
             | Some action -> { level with NextAction = Some action }, []
             | None ->
                 match inputKey with
-                | _ -> fun _ -> level, [ "Unknown command" ]
-                <| level
+                | _ -> level, [ "Unknown command" ]
     else
         level, []
