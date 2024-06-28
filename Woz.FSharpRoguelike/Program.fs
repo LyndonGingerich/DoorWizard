@@ -7,5 +7,5 @@ open LevelFactory
 
 [<EntryPoint>]
 let main argv =
-    render (testLevel (Random())) |> gameLoop
+    testLevel (Random()) |> gameLoop
     0 // return an integer exit code
