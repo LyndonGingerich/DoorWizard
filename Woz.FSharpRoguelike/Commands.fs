@@ -39,7 +39,7 @@ let buildUnlockDoorCommand = buildCommand canUnlockDoor unlockDoor
 
 let buildTakeItemsCommand = buildCommand canTakeItems takeItems
 
-let doorBolt direction level =
+let useDoorMagic command direction level =
     let player = level.Actors[playerId]
 
     let rec inner location level =
@@ -48,10 +48,22 @@ let doorBolt direction level =
         if Queries.Level.isBlockingTile newLocation level then
             level
         else
-            level |> placeDoor Open newLocation |> inner newLocation
+            level |> command newLocation |> inner newLocation
 
     inner player.Location level
 
-let doorBoltCommand direction level =
-    { Contents = doorBolt direction level |> Some
+let doorBlastCommand direction level =
+    { Contents = useDoorMagic (placeDoor Open) direction level |> Some
       Messages = [ "Schloop!" ] }
+
+let doorStopperCommand direction level =
+    { Contents = useDoorMagic removeDoor direction level |> Some
+      Messages = [ "poolhcs!" ] }
+
+let doorBoltCommand direction level =
+    { Contents = useDoorMagic (placeDoor (Locked "cat")) direction level |> Some
+      Messages = [ "ching ching!" ] }
+
+let doorBeamCommand direction level =
+    { Contents = useDoorMagic (placeDoor Closed) direction level |> Some
+      Messages = [ "KapLoop!" ] }

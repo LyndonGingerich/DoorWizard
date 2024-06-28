@@ -78,6 +78,10 @@ let placeDoor state location level =
     { level with
         Doors = Map.add location state level.Doors }
 
+let removeDoor location level =
+    { level with
+        Doors = Map.remove location level.Doors }
+
 let openDoor direction actorId level =
     let _, targetLocation = level |> actorTarget direction actorId
     level |> placeDoor Open targetLocation
