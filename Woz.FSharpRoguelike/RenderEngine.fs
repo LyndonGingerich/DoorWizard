@@ -55,21 +55,18 @@ let printAll strings =
 
 let print string = printfn $"%s{string}\n"
 
-let printNextMessage level =
+let getMaybeNextMessage level =
     let maybeMessage, level = Level.popMessage level
 
-    match maybeMessage with
-    | Some message ->
-        let message =
+    let maybeMessage =
+        maybeMessage
+        |> Option.map (fun message ->
             if not level.Messages.IsEmpty then
                 $"{message}--More--"
             else
-                message
+                message)
 
-        print message
-    | None -> ()
-
-    level
+    level, maybeMessage
 
 let render level =
     let buildRow currentY =
@@ -83,6 +80,7 @@ let render level =
 
     ys |> Seq.map buildRow |> printAll
 
-    let level = printNextMessage level
+    let level, maybeMessage = getMaybeNextMessage level
+    Option.iter print maybeMessage
 
     level
