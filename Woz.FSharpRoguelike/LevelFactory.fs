@@ -52,7 +52,8 @@ let testLevel =
           Actors = Map.empty<int, Actor>
           Items = Map.empty<Vector, List<Item>>
           MapActors = Map.empty<Vector, int>
-          Messages = [] }
+          Messages = []
+          NextAction = None }
 
     level
     |> spawnActor playerInit

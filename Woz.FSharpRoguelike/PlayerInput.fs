@@ -22,29 +22,36 @@ let getMaybeDirection =
     | ConsoleKey.D1 -> southWest |> Some
     | _ -> None
 
-let rec handleKeyPress activeBuilder level =
-    let workingBuilder = activeBuilder |> Option.defaultValue movePlayer
+let getMaybeNextAction =
+    function
+    | ConsoleKey.O -> buildCommand canOpenDoor openDoor |> Some
+    | ConsoleKey.C -> buildCommand canCloseDoor closeDoor |> Some
+    | ConsoleKey.U -> buildCommand canUnlockDoor unlockDoor |> Some
+    | ConsoleKey.T -> buildCommand canTakeItems takeItems |> Some
+    | ConsoleKey.OemMinus -> doorBlastCommand |> Some
+    | ConsoleKey.OemPeriod -> doorStopperCommand |> Some
+    | ConsoleKey.OemPlus -> doorBoltCommand |> Some
+    | ConsoleKey.D5 -> doorBeamCommand |> Some
+    | _ -> None
+
+let handleKeyPress level =
+    let workingBuilder = level.NextAction |> Option.defaultValue movePlayer
 
     let inputKey = Console.ReadKey().Key
 
     if level.Messages.IsEmpty then
         match getMaybeDirection inputKey with
-        | Some direction -> workingBuilder direction level
+        | Some direction ->
+            workingBuilder direction level
+            |> OperationResult.mapContents (fun level -> { level with NextAction = None })
         | None ->
-            match inputKey with
-            | ConsoleKey.O -> handleKeyPress (Some(buildCommand canOpenDoor openDoor))
-            | ConsoleKey.C -> handleKeyPress (Some(buildCommand canCloseDoor closeDoor))
-            | ConsoleKey.U -> handleKeyPress (Some(buildCommand canUnlockDoor unlockDoor))
-            | ConsoleKey.T -> handleKeyPress (Some(buildCommand canTakeItems takeItems))
-            | ConsoleKey.OemMinus -> handleKeyPress (Some doorBlastCommand)
-            | ConsoleKey.OemPeriod -> handleKeyPress (Some doorStopperCommand)
-            | ConsoleKey.OemPlus -> handleKeyPress (Some doorBoltCommand)
-            | ConsoleKey.D5 -> handleKeyPress (Some doorBeamCommand)
-            | _ -> invalidCommand
-            <| level
+            match getMaybeNextAction inputKey with
+            | Some action -> OperationResult.ofTuple ({ level with NextAction = Some action }, [])
+            | None ->
+                match inputKey with
+                | _ -> invalidCommand
+                <| level
     else
         OperationResult.success level
 
-let getCommandForActor = handleKeyPress None
-
-let getPlayerCommand () = getCommandForActor
+let getPlayerCommand () = handleKeyPress

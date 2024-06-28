@@ -65,7 +65,8 @@ type Level =
       Actors: Map<int, Actor>
       Items: Map<Vector, List<Item>>
       MapActors: Map<Vector, int>
-      Messages: List<string> }
+      Messages: List<string>
+      NextAction: (Vector -> Level -> OperationResult<Level>) option }
 
 module Level =
     let popMessage m =

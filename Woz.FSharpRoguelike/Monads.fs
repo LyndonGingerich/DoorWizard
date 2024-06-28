@@ -32,6 +32,10 @@ module OperationResult =
         { Contents = Some contents
           Messages = messages }
 
+    let mapContents f m =
+        { Contents = Option.map f m.Contents
+          Messages = m.Messages }
+
 [<AutoOpen>]
 module ResultFactory =
     open OperationResult
