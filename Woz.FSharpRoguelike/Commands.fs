@@ -1,17 +1,14 @@
 ﻿module Commands
 
 open GameTypes
-open Library
 open Operations
 
-let buildCommand (validator: Vector -> int -> Level -> _) (operation: Vector -> int -> Level -> Level) direction level =
-    result {
-        let! validLevel = validator direction playerId level
-        return operation direction playerId validLevel
-    }
+let buildCommand validator operation direction level =
+    match validator direction playerId level with
+    | Some message -> (level, [ message ])
+    | None -> operation direction playerId level, []
 
-let movePlayer move level =
-    Operations.move move level |> OperationResult.ofTuple
+let movePlayer move level = Operations.move move level
 
 let useDoorMagic command direction level =
     let player = level.Actors[playerId]
@@ -27,13 +24,13 @@ let useDoorMagic command direction level =
     inner player.Location level
 
 let doorBlastCommand direction level =
-    OperationResult.ofTuple (useDoorMagic (placeDoor Open) direction level, [ "Schloop!" ])
+    useDoorMagic (placeDoor Open) direction level, [ "Schloop!" ]
 
 let doorStopperCommand direction level =
-    OperationResult.ofTuple (useDoorMagic removeDoor direction level, [ "poolhcs!" ])
+    useDoorMagic removeDoor direction level, [ "poolhcs!" ]
 
 let doorBoltCommand direction level =
-    OperationResult.ofTuple (useDoorMagic (placeDoor (Locked "cat")) direction level, [ "ching ching!" ])
+    useDoorMagic (placeDoor (Locked "cat")) direction level, [ "ching ching!" ]
 
 let doorBeamCommand direction level =
-    OperationResult.ofTuple (useDoorMagic (placeDoor Closed) direction level, [ "KapLoop!" ])
+    useDoorMagic (placeDoor Closed) direction level, [ "KapLoop!" ]

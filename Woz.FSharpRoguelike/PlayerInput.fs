@@ -42,14 +42,14 @@ let handleKeyPress level =
     if level.Messages.IsEmpty then
         match getMaybeDirection inputKey with
         | Some direction ->
-            workingBuilder direction level
-            |> OperationResult.mapContents (fun level -> { level with NextAction = None })
+            let newLevel, messages = workingBuilder direction level
+            { newLevel with NextAction = None }, messages
         | None ->
             match getMaybeNextAction inputKey with
-            | Some action -> OperationResult.ofTuple ({ level with NextAction = Some action }, [])
+            | Some action -> { level with NextAction = Some action }, []
             | None ->
                 match inputKey with
-                | _ -> fun _ -> OperationResult.failure "Unknown command"
+                | _ -> fun _ -> level, [ "Unknown command" ]
                 <| level
     else
-        OperationResult.success level
+        level, []

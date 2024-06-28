@@ -7,7 +7,7 @@ open Library
 open Queries.Level
 
 let private doorExists location level =
-    OperationResult.ofOption "There is no door there" (findDoor location level)
+    findDoor location level |> Result.ofOption "There is no door there"
 
 let private canDoorBeClosed door =
     match door with
@@ -17,78 +17,65 @@ let private canDoorBeClosed door =
 
 let private canDoorBeUnlocked door =
     match door with
-    | Locked keyName -> OperationResult.success keyName
-    | _ -> OperationResult.failure "That door is not locked"
+    | Locked keyName -> Ok keyName
+    | _ -> Error "That door is not locked"
 
 let private isValidLocation location =
     if hasCoordinate location then
-        OperationResult.success location
+        None
     else
-        OperationResult.failure "That location is not on the map"
+        Some "That location is not on the map"
 
 let private isValidDirection direction actorId level =
-    result {
-        let actor = level.Actors[actorId]
-        let targetLocation = actor.Location + direction
-        let! validTarget = isValidLocation targetLocation
-        return validTarget
-    }
+    let actor = level.Actors[actorId]
+    let targetLocation = actor.Location + direction
+
+    match isValidLocation targetLocation with
+    | Some error -> Error error
+    | None -> Ok targetLocation
 
 let private hasKeyForLockedDoor actor door =
-    result {
-        let! keyName = canDoorBeUnlocked door
-
-        if not (hasKey keyName actor) then
-            return! OperationResult.failure ("You need " + keyName + " to unlock that door")
+    match canDoorBeUnlocked door with
+    | Ok keyName ->
+        if hasKey keyName actor then
+            None
         else
-            return door
-    }
+            Some("You need " + keyName + " to unlock that door")
+    | Error message -> Some message
 
 // Validators
 
-let canOpenDoor direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-        let! door = level |> doorExists validTarget
+let getDoorResult direction actorId level =
+    isValidDirection direction actorId level
+    |> Result.bind (fun validTarget -> doorExists validTarget level)
 
+let canOpenDoor direction actorId level =
+    match getDoorResult direction actorId level with
+    | Ok door ->
         match door with
-        | Closed -> return level
-        | Open -> return! OperationResult.failure "That door is already open"
-        | Locked _ -> return! OperationResult.failure "That door is locked"
-    }
+        | Closed -> None
+        | Open -> Some "That door is already open"
+        | Locked _ -> Some "That door is locked"
+    | Error msg -> Some msg
 
 let canCloseDoor direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-        let! door = level |> doorExists validTarget
-
-        match canDoorBeClosed door with
-        | None -> return level
-        | Some error -> return! OperationResult.failure error
-    }
+    match getDoorResult direction actorId level with
+    | Ok door -> canDoorBeClosed door
+    | Error msg -> Some msg
 
 let isLockedDoor direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-        let! door = level |> doorExists validTarget
-        let! _ = canDoorBeUnlocked door
-        return level
-    }
+    getDoorResult direction actorId level |> Result.bind canDoorBeUnlocked
 
 let canUnlockDoor direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-        let! door = level |> doorExists validTarget
-        let! _ = hasKeyForLockedDoor level.Actors[actorId] door
-        return level
-    }
+    match getDoorResult direction actorId level with
+    | Ok door -> hasKeyForLockedDoor level.Actors[actorId] door
+    | Error msg -> Some msg
 
 let canTakeItems direction actorId level =
-    result {
-        let! validTarget = level |> isValidDirection direction actorId
-
+    match isValidDirection direction actorId level with
+    | Ok validTarget ->
         if itemsAt validTarget level |> List.isEmpty then
-            return! OperationResult.failure "No items to take"
+            Some "No items to take"
         else
-            return level
-    }
+            None
+    | Error msg -> Some msg
