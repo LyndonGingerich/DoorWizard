@@ -11,10 +11,7 @@ open Validation
 open Vector.Directions
 
 let rec handleKeyPress activeBuilder level =
-    let workingBuilder =
-        match activeBuilder with
-        | Some builder -> builder
-        | None -> movePlayer
+    let workingBuilder = activeBuilder |> Option.defaultValue movePlayer
 
     let inputKey = Console.ReadKey().Key
 
