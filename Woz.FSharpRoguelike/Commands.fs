@@ -5,20 +5,16 @@ open Library
 open Operations
 open Validation
 
-let private composeCommand (validation: Level -> _) (operation: Level -> Level) level =
-    result {
-        let! validLevel = validation level
-        return operation validLevel
-    }
-
 let private buildCommand
     (validator: Vector -> int -> Level -> _)
     (operation: Vector -> int -> Level -> Level)
     direction
+    level
     =
-    let test = validator direction playerId
-    let action = operation direction playerId
-    composeCommand test action
+    result {
+        let! validLevel = validator direction playerId level
+        return operation direction playerId validLevel
+    }
 
 let invalidCommand _ =
     OperationResult.failure "Unknown command"
