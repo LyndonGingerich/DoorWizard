@@ -2,7 +2,7 @@
 
 open PlayerInput
 open Operations
-open Queries.Level
+open Queries
 open RenderEngine
 
 let private runTurn playerCommand level =

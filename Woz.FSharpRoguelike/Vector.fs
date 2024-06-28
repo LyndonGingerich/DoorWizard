@@ -23,6 +23,7 @@ type Vector =
 
     static member op_GreaterThan(lhs, rhs) = lhs.X > rhs.X && lhs.Y > rhs.Y
 
+[<RequireQualifiedAccess>]
 module Vector =
     let create x y = { X = x; Y = y }
 
@@ -35,13 +36,13 @@ module Vector =
         let distanceSq = (sqr diff.X) + (sqr diff.Y)
         sqrt (float distanceSq)
 
-    module Directions =
-        let idle = create 0 0
-        let north = create 0 1
-        let northEast = create 1 1
-        let east = create 1 0
-        let southEast = create 1 -1
-        let south = create 0 -1
-        let southWest = create -1 -1
-        let west = create -1 0
-        let northWest = create -1 1
+module Direction =
+    let idle = Vector.create 0 0
+    let north = Vector.create 0 1
+    let northEast = Vector.create 1 1
+    let east = Vector.create 1 0
+    let southEast = Vector.create 1 -1
+    let south = Vector.create 0 -1
+    let southWest = Vector.create -1 -1
+    let west = Vector.create -1 0
+    let northWest = Vector.create -1 1

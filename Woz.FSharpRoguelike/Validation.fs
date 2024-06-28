@@ -4,7 +4,7 @@ open Microsoft.FSharp.Core
 
 open GameTypes
 open Library
-open Queries.Level
+open Queries
 
 let private doorExists location level =
     findDoor location level |> Result.ofOption "There is no door there"

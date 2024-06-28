@@ -14,7 +14,7 @@ let useDoorMagic command direction level =
     let rec inner location level =
         let newLocation = location + direction
 
-        if Queries.Level.isBlockingTile newLocation level then
+        if Queries.isBlockingTile newLocation level then
             level
         else
             level |> command newLocation |> inner newLocation

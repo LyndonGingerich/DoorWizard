@@ -2,7 +2,7 @@
 
 open GameTypes
 open Library
-open Queries.Level
+open Queries
 
 // Messages
 

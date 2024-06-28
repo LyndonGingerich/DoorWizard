@@ -5,7 +5,7 @@ open System
 open GameTypes
 open GameTypes.LevelMap
 open Library
-open Queries.Level
+open Queries
 
 let private tileToChar tile =
     match tile with

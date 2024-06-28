@@ -8,7 +8,7 @@ open Commands
 open GameTypes
 open Operations
 open Validation
-open Vector.Directions
+open Direction
 
 let getMaybeDirection =
     function

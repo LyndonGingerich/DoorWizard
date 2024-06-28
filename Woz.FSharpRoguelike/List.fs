@@ -1,3 +1,4 @@
-﻿module Library.List
+﻿[<RequireQualifiedAccess>]
+module Library.List
 
 let prepend a ma = a :: ma
