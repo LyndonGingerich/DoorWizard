@@ -35,7 +35,7 @@ let getMaybeNextAction =
     | _ -> None
 
 let handleKeyPress level =
-    let workingBuilder = level.NextAction |> Option.defaultValue movePlayer
+    let workingBuilder = level.NextAction |> Option.defaultValue move
 
     let inputKey = Console.ReadKey().Key
 

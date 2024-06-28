@@ -8,8 +8,6 @@ let buildCommand validator operation direction level =
     | Some message -> (level, [ message ])
     | None -> operation direction playerId level, []
 
-let movePlayer move level = Operations.move move level
-
 let useDoorMagic command direction level =
     let player = level.Actors[playerId]
 
