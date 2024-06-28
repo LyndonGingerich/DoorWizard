@@ -53,5 +53,3 @@ let handleKeyPress level =
                 <| level
     else
         OperationResult.success level
-
-let getPlayerCommand () = handleKeyPress
