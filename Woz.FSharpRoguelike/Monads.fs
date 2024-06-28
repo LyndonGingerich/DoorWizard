@@ -28,6 +28,10 @@ module OperationResult =
             { Contents = None
               Messages = ma.Messages }
 
+    let ofTuple (contents, messages) =
+        { Contents = Some contents
+          Messages = messages }
+
 [<AutoOpen>]
 module ResultFactory =
     open OperationResult

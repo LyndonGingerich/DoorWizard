@@ -20,10 +20,7 @@ let invalidCommand _ =
     OperationResult.failure "Unknown command"
 
 let movePlayer move level =
-    let newLevel, messages = Operations.move move level
-
-    { Contents = Some newLevel
-      Messages = messages }
+    Operations.move move level |> OperationResult.ofTuple
 
 let buildOpenDoorCommand = buildCommand canOpenDoor openDoor
 
@@ -47,17 +44,13 @@ let useDoorMagic command direction level =
     inner player.Location level
 
 let doorBlastCommand direction level =
-    { Contents = useDoorMagic (placeDoor Open) direction level |> Some
-      Messages = [ "Schloop!" ] }
+    OperationResult.ofTuple (useDoorMagic (placeDoor Open) direction level, [ "Schloop!" ])
 
 let doorStopperCommand direction level =
-    { Contents = useDoorMagic removeDoor direction level |> Some
-      Messages = [ "poolhcs!" ] }
+    OperationResult.ofTuple (useDoorMagic removeDoor direction level, [ "poolhcs!" ])
 
 let doorBoltCommand direction level =
-    { Contents = useDoorMagic (placeDoor (Locked "cat")) direction level |> Some
-      Messages = [ "ching ching!" ] }
+    OperationResult.ofTuple (useDoorMagic (placeDoor (Locked "cat")) direction level, [ "ching ching!" ])
 
 let doorBeamCommand direction level =
-    { Contents = useDoorMagic (placeDoor Closed) direction level |> Some
-      Messages = [ "KapLoop!" ] }
+    OperationResult.ofTuple (useDoorMagic (placeDoor Closed) direction level, [ "KapLoop!" ])
