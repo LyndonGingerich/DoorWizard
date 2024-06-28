@@ -1,38 +1,38 @@
 ﻿namespace Library
 
 type Vector =
-    { x: int
-      y: int }
+    { X: int
+      Y: int }
 
     static member op_Addition(lhs, rhs) =
-        { x = lhs.x + rhs.x; y = lhs.y + rhs.y }
+        { X = lhs.X + rhs.X; Y = lhs.Y + rhs.Y }
 
     static member op_Subtraction(lhs, rhs) =
-        { x = lhs.x - rhs.x; y = lhs.y - rhs.y }
+        { X = lhs.X - rhs.X; Y = lhs.Y - rhs.Y }
 
     static member op_Multiply(lhs: Vector, scale: int) =
-        { x = lhs.x * scale; y = lhs.y * scale }
+        { X = lhs.X * scale; Y = lhs.Y * scale }
 
-    static member op_LessThanOrEqual(lhs, rhs) = lhs.x <= rhs.x && lhs.y <= rhs.y
+    static member op_LessThanOrEqual(lhs, rhs) = lhs.X <= rhs.X && lhs.Y <= rhs.Y
 
-    static member op_Equals(lhs, rhs) = lhs.x = rhs.x && lhs.y = rhs.y
+    static member op_Equals(lhs, rhs) = lhs.X = rhs.X && lhs.Y = rhs.Y
 
-    static member op_LessThan(lhs, rhs) = lhs.x < rhs.x && lhs.y < rhs.y
+    static member op_LessThan(lhs, rhs) = lhs.X < rhs.X && lhs.Y < rhs.Y
 
-    static member op_GreaterThanOrEqual(lhs, rhs) = lhs.x >= rhs.x && lhs.y >= rhs.y
+    static member op_GreaterThanOrEqual(lhs, rhs) = lhs.X >= rhs.X && lhs.Y >= rhs.Y
 
-    static member op_GreaterThan(lhs, rhs) = lhs.x > rhs.x && lhs.y > rhs.y
+    static member op_GreaterThan(lhs, rhs) = lhs.X > rhs.X && lhs.Y > rhs.Y
 
 module Vector =
-    let create x y = { x = x; y = y }
+    let create x y = { X = x; Y = y }
 
     let abs location =
-        create (abs location.x) (abs location.y)
+        create (abs location.X) (abs location.Y)
 
     let distanceFrom target location =
         let diff = abs (target - location)
         let sqr x = x * x
-        let distanceSq = (sqr diff.x) + (sqr diff.y)
+        let distanceSq = (sqr diff.X) + (sqr diff.Y)
         sqrt (float distanceSq)
 
     module Directions =

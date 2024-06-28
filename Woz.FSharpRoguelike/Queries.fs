@@ -7,7 +7,7 @@ module Level =
     let hasCoordinate location =
         location >= LevelMap.bottomLeft && location <= LevelMap.topRight
 
-    let getTile location level = level.Map[location.y][location.x]
+    let getTile location level = level.Map[location.Y][location.X]
 
     let isPlayerId id = id = playerId
     let isNpcId id = id <> playerId

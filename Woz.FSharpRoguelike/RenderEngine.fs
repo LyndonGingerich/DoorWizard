@@ -34,7 +34,7 @@ let private maybeDoor location =
 
 let private maybeTile location = getTile location >> tileToChar >> Some
 
-let private maybeHealthDisplay { x = x; y = y } level =
+let private maybeHealthDisplay { X = x; Y = y } level =
     $"Health: %i{level.Actors[playerId].Stats.Health.Current}"
     |> Seq.indexed
     |> Seq.tryFind (fun (i, _) -> x = (i + 29) && y = 1)
@@ -49,9 +49,9 @@ let private renderTile level location =
     | Some c -> c
     | None -> ' '
 
-let private xs = seq { 0 .. topRight.x }
+let private xs = seq { 0 .. topRight.X }
 
-let private ys = seq { (topRight.y - 1) .. -1 .. 0 }
+let private ys = seq { (topRight.Y - 1) .. -1 .. 0 }
 
 let printAll strings =
     strings |> Seq.iter (printfn "%s")
