@@ -34,9 +34,15 @@ let private maybeDoor location =
 
 let private maybeTile location = getTile location >> tileToChar >> Some
 
+let private maybeHealthDisplay { x = x; y = y } level =
+    $"Health: %i{level.Actors[playerId].Stats.Health.Current}"
+    |> Seq.indexed
+    |> Seq.tryFind (fun (i, _) -> x = (i + 29) && y = 1)
+    |> Option.map snd
+
 let private renderTile level location =
     let char =
-        [ maybeActor; maybeItems; maybeDoor; maybeTile ]
+        [ maybeHealthDisplay; maybeActor; maybeItems; maybeDoor; maybeTile ]
         |> List.tryPick (fun f -> f location level)
 
     match char with
