@@ -3,8 +3,11 @@
 open System
 
 open Library
-open GameTypes
+
 open Commands
+open GameTypes
+open Operations
+open Validation
 open Vector.Directions
 
 let rec handleKeyPress activeBuilder level =
@@ -17,10 +20,10 @@ let rec handleKeyPress activeBuilder level =
 
     if level.Messages.IsEmpty then
         match inputKey with
-        | ConsoleKey.O -> handleKeyPress (Some buildOpenDoorCommand)
-        | ConsoleKey.C -> handleKeyPress (Some buildCloseDoorCommand)
-        | ConsoleKey.U -> handleKeyPress (Some buildUnlockDoorCommand)
-        | ConsoleKey.T -> handleKeyPress (Some buildTakeItemsCommand)
+        | ConsoleKey.O -> handleKeyPress (Some(buildCommand canOpenDoor openDoor))
+        | ConsoleKey.C -> handleKeyPress (Some(buildCommand canCloseDoor closeDoor))
+        | ConsoleKey.U -> handleKeyPress (Some(buildCommand canUnlockDoor unlockDoor))
+        | ConsoleKey.T -> handleKeyPress (Some(buildCommand canTakeItems takeItems))
         | ConsoleKey.OemMinus -> handleKeyPress (Some doorBlastCommand)
         | ConsoleKey.OemPeriod -> handleKeyPress (Some doorStopperCommand)
         | ConsoleKey.D9 -> workingBuilder northEast

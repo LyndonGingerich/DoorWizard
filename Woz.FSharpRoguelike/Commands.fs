@@ -3,14 +3,8 @@
 open GameTypes
 open Library
 open Operations
-open Validation
 
-let private buildCommand
-    (validator: Vector -> int -> Level -> _)
-    (operation: Vector -> int -> Level -> Level)
-    direction
-    level
-    =
+let buildCommand (validator: Vector -> int -> Level -> _) (operation: Vector -> int -> Level -> Level) direction level =
     result {
         let! validLevel = validator direction playerId level
         return operation direction playerId validLevel
@@ -21,14 +15,6 @@ let invalidCommand _ =
 
 let movePlayer move level =
     Operations.move move level |> OperationResult.ofTuple
-
-let buildOpenDoorCommand = buildCommand canOpenDoor openDoor
-
-let buildCloseDoorCommand = buildCommand canCloseDoor closeDoor
-
-let buildUnlockDoorCommand = buildCommand canUnlockDoor unlockDoor
-
-let buildTakeItemsCommand = buildCommand canTakeItems takeItems
 
 let useDoorMagic command direction level =
     let player = level.Actors[playerId]
