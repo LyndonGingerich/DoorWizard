@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DieRoll.fs" />
     <Compile Include="Monads.fs" />
     <Compile Include="Map.fs" />
     <Compile Include="List.fs" />
