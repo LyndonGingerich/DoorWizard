@@ -22,8 +22,8 @@
     <Compile Include="Commands.fs" />
     <Compile Include="PlayerInput.fs" />
     <Compile Include="RenderEngine.fs" />
-    <Compile Include="GameLoop.fs" />
     <Compile Include="LevelFactory.fs" />
+    <Compile Include="GameLoop.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
