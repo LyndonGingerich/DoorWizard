@@ -19,8 +19,6 @@ let private buildCommand
 let invalidCommand _ =
     OperationResult.failure "Unknown command"
 
-let idleCommand (level: Level) = OperationResult.success level
-
 let movePlayer move level =
     let newLevel, messages = Operations.move move level
 
