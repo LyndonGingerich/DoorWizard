@@ -28,10 +28,10 @@ let getMaybeNextAction =
     | ConsoleKey.C -> buildCommand canCloseDoor closeDoor |> Some
     | ConsoleKey.U -> buildCommand canUnlockDoor unlockDoor |> Some
     | ConsoleKey.T -> buildCommand canTakeItems takeItems |> Some
-    | ConsoleKey.OemMinus -> doorBlastCommand |> Some
+    | ConsoleKey.OemMinus -> doorBeamCommand |> Some
     | ConsoleKey.OemPeriod -> doorStopperCommand |> Some
     | ConsoleKey.OemPlus -> doorBoltCommand |> Some
-    | ConsoleKey.D5 -> doorBeamCommand |> Some
+    | ConsoleKey.D5 -> doorBlastCommand |> Some
     | _ -> None
 
 let handleKeyPress level =

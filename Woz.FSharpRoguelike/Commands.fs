@@ -23,8 +23,8 @@ let useDoorMagic command direction level =
 
     inner player.Location level
 
-let doorBlastCommand direction level =
-    useDoorMagic (placeDoor Open) direction level, [ "Schloop!" ]
+let doorBeamCommand direction level =
+    useDoorMagic (placeDoor Open) direction level, [ "kaploop!" ]
 
 let doorStopperCommand direction level =
     useDoorMagic removeDoor direction level, [ "poolhcs!" ]
@@ -32,5 +32,5 @@ let doorStopperCommand direction level =
 let doorBoltCommand direction level =
     useDoorMagic (placeDoor (Locked "cat")) direction level, [ "ching ching!" ]
 
-let doorBeamCommand direction level =
-    useDoorMagic (placeDoor Closed) direction level, [ "KapLoop!" ]
+let doorBlastCommand direction level =
+    useDoorMagic (placeDoor Closed) direction level, [ "Schloop!" ]
