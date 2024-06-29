@@ -34,10 +34,8 @@ let getMaybeNextAction =
     | ConsoleKey.D5 -> doorBlastCommand |> Some
     | _ -> None
 
-let handleKeyPress level =
+let handleKeyPress inputKey level =
     let workingBuilder = level.NextAction |> Option.defaultValue move
-
-    let inputKey = Console.ReadKey().Key
 
     if level.Messages.IsEmpty then
         match getMaybeDirection inputKey with
