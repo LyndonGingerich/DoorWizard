@@ -50,3 +50,7 @@ let handleKeyPress inputKey level =
                 | _ -> level, [ "Unknown command" ]
     else
         level, []
+
+let runTurn playerCommand level =
+    let newLevel, messages = level |> playerCommand
+    newLevel |> logAll messages

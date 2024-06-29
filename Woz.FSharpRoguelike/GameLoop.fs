@@ -3,13 +3,8 @@
 open System
 
 open PlayerInput
-open Operations
 open Queries
 open RenderEngine
-
-let private runTurn playerCommand level =
-    let newLevel, messages = level |> playerCommand
-    newLevel |> logAll messages
 
 let render level =
     Console.Clear()
