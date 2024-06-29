@@ -26,6 +26,6 @@ let rec gameLoop level =
     let turnLevel = level |> render |> runTurn (handleKeyPress (Console.ReadKey().Key))
 
     if turnLevel |> isPlayerDead then
-        ()
+        print deathMessage
     else
         turnLevel |> gameLoop

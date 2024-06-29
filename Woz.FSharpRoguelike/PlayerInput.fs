@@ -54,3 +54,5 @@ let handleKeyPress inputKey level =
 let runTurn playerCommand level =
     let newLevel, messages = level |> playerCommand
     newLevel |> logAll messages
+
+let deathMessage = "You dead, fluff butt!"
