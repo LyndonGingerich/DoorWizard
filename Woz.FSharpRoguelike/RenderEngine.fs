@@ -12,7 +12,7 @@ let private tileToChar tile =
     | Wall -> '#'
     | Floor -> '.'
     | Water -> '~'
-    | _ -> ' '
+    | Void -> ' '
 
 let private doorToChar door =
     match door with
