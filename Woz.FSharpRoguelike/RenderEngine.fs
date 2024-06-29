@@ -59,12 +59,6 @@ let buildLevel level =
 
     ys |> Seq.map (buildRow level)
 
-let printAll strings =
-    strings |> Seq.iter (printfn "%s")
-    printfn ""
-
-let print string = printfn $"%s{string}\n"
-
 let getMaybeNextMessage level =
     let maybeMessage, level = Level.popMessage level
 

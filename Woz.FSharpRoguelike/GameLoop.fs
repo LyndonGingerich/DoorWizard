@@ -6,6 +6,12 @@ open PlayerInput
 open Queries
 open RenderEngine
 
+let printAll strings =
+    strings |> Seq.iter (printfn "%s")
+    printfn ""
+
+let print string = printfn $"%s{string}\n"
+
 let render level =
     Console.Clear()
 
