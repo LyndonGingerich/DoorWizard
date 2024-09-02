@@ -1,7 +1,5 @@
 ﻿module GameTypes
 
-open System
-
 open Library
 
 type Tile =
@@ -70,8 +68,7 @@ type Level =
       Items: Map<Vector, List<Item>>
       MapActors: Map<Vector, int>
       Messages: List<string>
-      NextAction: (Vector -> Level -> Level * string list) option
-      Random: Random }
+      NextAction: (Vector -> Level -> Level * string list) option }
 
 module Level =
     let popMessage m =

@@ -45,7 +45,7 @@ let private testMap =
 
     testLevelTemplate |> Seq.rev |> Seq.map rowToTiles |> List.ofSeq
 
-let testLevel random =
+let testLevel =
     let level =
         { Map = testMap
           Doors = Map.empty<Vector, Door>
@@ -53,8 +53,7 @@ let testLevel random =
           Items = Map.empty<Vector, List<Item>>
           MapActors = Map.empty<Vector, int>
           Messages = []
-          NextAction = None
-          Random = random }
+          NextAction = None }
 
     level
     |> spawnActor playerInit

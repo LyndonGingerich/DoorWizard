@@ -31,5 +31,5 @@ let rec gameLoop level =
 
 [<EntryPoint>]
 let main argv =
-    LevelFactory.testLevel (Random()) |> gameLoop
+    LevelFactory.testLevel |> gameLoop
     0 // return an integer exit code
