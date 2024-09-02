@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.PlayerInput
+module DoorWizard.Engine.PlayerInput
 
 open System
 

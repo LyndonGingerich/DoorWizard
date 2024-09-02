@@ -1,4 +1,4 @@
-﻿[<RequireQualifiedAccess>]
+[<RequireQualifiedAccess>]
 module DoorWizard.Console.Die
 
 open System

@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.GameTypes
+module DoorWizard.Engine.GameTypes
 
 type Tile =
     | Void

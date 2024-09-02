@@ -1,4 +1,4 @@
-﻿namespace DoorWizard.Engine
+namespace DoorWizard.Engine
 
 type Vector =
     { X: int

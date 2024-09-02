@@ -1,4 +1,4 @@
-﻿[<RequireQualifiedAccess>]
+[<RequireQualifiedAccess>]
 module DoorWizard.Library.Map
 
 let mapAt key f m =

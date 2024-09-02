@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.RenderEngine
+module DoorWizard.Engine.RenderEngine
 
 open System
 

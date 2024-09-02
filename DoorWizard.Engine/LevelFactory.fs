@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.LevelFactory
+module DoorWizard.Engine.LevelFactory
 
 open GameTypes
 open Operations

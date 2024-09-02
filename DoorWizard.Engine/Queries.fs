@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.Queries
+module DoorWizard.Engine.Queries
 
 open GameTypes
 

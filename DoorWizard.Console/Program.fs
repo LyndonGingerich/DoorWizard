@@ -1,4 +1,4 @@
-﻿module DoorWizard.Console.Program
+module DoorWizard.Console.Program
 
 open System
 

@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.Validation
+module DoorWizard.Engine.Validation
 
 open Microsoft.FSharp.Core
 

@@ -1,4 +1,4 @@
-﻿module DoorWizard.Engine.Operations
+module DoorWizard.Engine.Operations
 
 open DoorWizard.Library
 
