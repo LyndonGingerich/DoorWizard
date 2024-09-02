@@ -1,6 +1,8 @@
-﻿module Program
+﻿module DoorWizard.Console.Program
 
 open System
+
+open DoorWizard.Engine
 
 let printAll strings =
     strings |> Seq.iter (printfn "%s")

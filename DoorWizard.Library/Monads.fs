@@ -1,4 +1,4 @@
-﻿namespace Library
+﻿namespace DoorWizard.Library
 
 [<RequireQualifiedAccess>]
 module Result =

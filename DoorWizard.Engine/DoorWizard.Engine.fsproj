@@ -1,15 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Die.fs" />
-    <Compile Include="Monads.fs" />
-    <Compile Include="Map.fs" />
-    <Compile Include="List.fs" />
     <Compile Include="Vector.fs" />
     <Compile Include="GameTypes.fs" />
     <Compile Include="Queries.fs" />
@@ -19,12 +14,14 @@
     <Compile Include="PlayerInput.fs" />
     <Compile Include="RenderEngine.fs" />
     <Compile Include="LevelFactory.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="8.0.300" />
     <PackageReference Include="Fable.Core" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DoorWizard.Library\DoorWizard.Library.fsproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,8 @@
-﻿module Operations
+﻿module DoorWizard.Engine.Operations
+
+open DoorWizard.Library
 
 open GameTypes
-open Library
 open Queries
 
 // Messages

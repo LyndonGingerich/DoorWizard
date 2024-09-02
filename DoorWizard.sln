@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DoorWizard", "DoorWizard\DoorWizard.fsproj", "{D899B23C-7B58-490E-92D1-0D0D0A072C80}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DoorWizard.Engine", "DoorWizard.Engine\DoorWizard.Engine.fsproj", "{D899B23C-7B58-490E-92D1-0D0D0A072C80}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DoorWizard.Console", "DoorWizard.Console\DoorWizard.Console.fsproj", "{E6354194-CEF9-4D5E-A64A-025CDC826CD9}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DoorWizard.Library", "DoorWizard.Library\DoorWizard.Library.fsproj", "{0911FD39-7C0D-4C34-9037-E177D390A1FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D899B23C-7B58-490E-92D1-0D0D0A072C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D899B23C-7B58-490E-92D1-0D0D0A072C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D899B23C-7B58-490E-92D1-0D0D0A072C80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6354194-CEF9-4D5E-A64A-025CDC826CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6354194-CEF9-4D5E-A64A-025CDC826CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6354194-CEF9-4D5E-A64A-025CDC826CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6354194-CEF9-4D5E-A64A-025CDC826CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0911FD39-7C0D-4C34-9037-E177D390A1FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0911FD39-7C0D-4C34-9037-E177D390A1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0911FD39-7C0D-4C34-9037-E177D390A1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0911FD39-7C0D-4C34-9037-E177D390A1FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

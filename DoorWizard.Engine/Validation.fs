@@ -1,9 +1,10 @@
-﻿module Validation
+﻿module DoorWizard.Engine.Validation
 
 open Microsoft.FSharp.Core
 
+open DoorWizard.Library
+
 open GameTypes
-open Library
 open Queries
 
 let private doorExists location level =

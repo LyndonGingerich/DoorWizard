@@ -1,7 +1,6 @@
-﻿module Queries
+﻿module DoorWizard.Engine.Queries
 
 open GameTypes
-open Library
 
 let hasCoordinate location =
     location >= LevelMap.bottomLeft && location <= LevelMap.topRight

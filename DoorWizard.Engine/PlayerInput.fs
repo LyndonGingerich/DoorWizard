@@ -1,8 +1,6 @@
-﻿module PlayerInput
+﻿module DoorWizard.Engine.PlayerInput
 
 open System
-
-open Library
 
 open Commands
 open GameTypes

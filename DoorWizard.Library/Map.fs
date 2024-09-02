@@ -1,5 +1,5 @@
 ﻿[<RequireQualifiedAccess>]
-module Library.Map
+module DoorWizard.Library.Map
 
 let mapAt key f m =
     match Map.tryFind key m with

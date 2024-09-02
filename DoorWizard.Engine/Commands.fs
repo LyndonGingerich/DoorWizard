@@ -1,4 +1,4 @@
-﻿module Commands
+﻿module DoorWizard.Engine.Commands
 
 open GameTypes
 open Operations

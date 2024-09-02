@@ -1,7 +1,6 @@
-﻿module LevelFactory
+﻿module DoorWizard.Engine.LevelFactory
 
 open GameTypes
-open Library
 open Operations
 
 let private testLevelTemplate =

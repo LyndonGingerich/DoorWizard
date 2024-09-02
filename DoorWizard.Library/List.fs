@@ -1,4 +1,4 @@
 ﻿[<RequireQualifiedAccess>]
-module Library.List
+module DoorWizard.Library.List
 
 let prepend a ma = a :: ma

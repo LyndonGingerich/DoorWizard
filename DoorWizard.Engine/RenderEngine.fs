@@ -1,10 +1,9 @@
-﻿module RenderEngine
+﻿module DoorWizard.Engine.RenderEngine
 
 open System
 
 open GameTypes
 open GameTypes.LevelMap
-open Library
 open Queries
 
 let private tileToChar tile =
